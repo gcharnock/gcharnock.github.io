@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Gareth Charnock - Contraction Hierarchies Workshop</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Gareth Charnock</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Contraction Hierarchies Workshop</h1>
+
+            <div class="info">
+    Posted on May 11, 2016
+    
+</div>
+
+<p>Contraction hierarchies are a</p>
+<ul>
+<li>Robert Geisberger’s thesis, which at the time of writing could be found here: <a href="algo2.iti.kit.edu/documents/routeplanning/geisberger_dipl.pdf">here</a></li>
+<li>Geisberger, Robert, et al. “Contraction hierarchies: Faster and simpler hierarchical routing in road networks.” Experimental Algorithms. Springer Berlin Heidelberg, 2008. 319-333. May be found <a href="http://algo2.iti.kit.edu/schultes/hwy/contract.pdf">here</a>.</li>
+<li>Michael Tandy’s <a href="https://www.mjt.me.uk/posts/contraction-hierarchies/">blog post</a>.</li>
+<li>Michael Tandy’s <a href="https://github.com/michaeltandy/contraction-hierarchies">implementation</a>.</li>
+</ul>
+<h1 id="recap-on-dijkstras">Recap on Dijkstra’s</h1>
+<p><em>Aside: how do you spell Dijkstra? Well, Dijkstra was a bigger advocate of structured programming, which uses things like loops. What are typical variable names for loop indexes and what order do you use them in?</em></p>
+<p>Dijkstra’s algorithm:</p>
+<pre><code>inputs: a graph, g. A starting node, s
+
+until all nodes are contracted:
+    let Q be a priority queue
+    let dist be a property map indexed by node
+    dist[s] &lt;- 0
+    add s to Q with priority 0
+
+    while Q is not empty:
+        pop the top node, u, from Q
+        for each neighbour, v, of u:
+            let this_dist = dist[u] + length(u, v)
+            if this_dist &gt; dist[v]:
+                dist[v] &lt;- this_dist
+            add or update v to Q with priority dist[v]</code></pre>
+<p>A node that has a <code>dist[]</code> value set is known as in the <strong>frontier</strong>. When a node is pulled off the priority queue it is <strong>settled</strong> or <strong>visited</strong>. The value of <code>dist[]</code> of a <strong>settled</strong> node is the shortest distance to that node.</p>
+<p>Make sure you can pencil and paper Dijkstra search the following graph.</p>
+<center>
+<img src="../svg/basic-dijkstra.svg" alt />
+</center>
+<p>You will need to update the priority of a node during this search so this graph makes a good test case.</p>
+<p><em>The contraction heirachies algorithm is exact</em>, just like Dijkstra’s. This fact can be very useful when writing tests. You can generate many random graphs and check that your contraction heirachies query produces the same path distance as a basic Dijkstra search. Note, if you do this, make sure that edge weights are of a type that supports exact arithmatic such as an <code>int</code> or a rational number type. Do not use floating point.</p>
+<p>If your programing language supports it, allow the edge weights to be a type parameter. In addition to being able to test with <code>int</code> and but support floating point in production, this will come in handy in the time dependent case.</p>
+<h1 id="contracting-a-node">Contracting a node</h1>
+<p>The algorithm for contracting a node, ignoring witness paths for now, is:</p>
+<pre><code>inputs: a node, v
+
+for every connected pair of nodes, u and w, that have not been
+contracted:
+    let d = length(u, v) + length(v, w)
+    insert a new edge between u and w of length d</code></pre>
+<p>In this graph, the blue node is to be contracted first. All edges are length 1.</p>
+<center>
+<img src="../svg/basic-contraction.svg" alt />
+</center>
+<p>The algorithm for contracting a graph is:</p>
+<pre><code>inputs: a graph, g
+
+until all nodes are contracted:
+    select a node, n, to contract next
+    contract that node</code></pre>
+<p>The order that the nodes are contracted in is called the <strong>contraction order</strong>. Any order can be used without affecting the correctness of results so at this stage we will select arbitrary order, but <em>it is very important in practice</em>.</p>
+<p>Complete the contraction of the following graph. You should need to add <strong>3</strong> new shortcuts. Note the contraction order has been represented by the vertical height of the notes. This is a very common way for the contraction order to be visualised in the literature.</p>
+<center>
+<img src="../svg/basic-contraction-02.svg" alt />
+</center>
+<p>Unless otherwise noted, from now on, the vertical axis will represent the contraction order.</p>
+<p>The following diagrams represent the same graph with different orderings of the nodes. Contract them.</p>
+<center>
+<img src="../svg/basic-contraction-04.svg" alt /> <img src="../svg/basic-contraction-04b.svg" alt />
+</center>
+<p>Notice that the number of shortcuts added depends on the ordering. Which ordering would you expect to speed up the queries the most?</p>
+<h1 id="performing-half-searches">Performing half searches</h1>
+<p>The contraction hierarchies search is bidirectional, meaning two Dijkstra-like searches are performed and the results are combined to obtain the shortest path. The algorithm for performing each half search is as follows:</p>
+<pre><code>inputs: a graph, g. A starting node, s
+
+until all nodes are contracted:
+    let Q be a priority queue
+    let dist be a property map indexed by node
+    dist[s] &lt;- 0
+    add s to Q with priority 0
+
+    while Q is not empty:
+        pop the top node, u, from Q
+        for each neighbour, v, of u such that v &gt; u:
+            let this_dist = dist[u] + length(u, v)
+            if this_dist &gt; dist[v]:
+                dist[v] &lt;- this_dist
+            add or update v to Q with priority dist[v]</code></pre>
+<p>Note that the <em>only</em> difference between this algorithm and Dijkstra’s is the addition of <code>such that v &gt; u</code>.</p>
+<p>Contract the following graph (you should add <em>3</em> shortcuts). Use the modified Dijkstra’s algorithm starting at the blue node. There are <em>2</em> node that will not be settled when the algorithm terminates. For graphs of significant size, the majority of nodes will remain unvisited. This is why contraction hierarchies is able to find shortest paths quickly.</p>
+<center>
+<img src="../svg/basic-contraction-03.svg" alt />
+</center>
+<h1 id="combining-searches">Combining searches</h1>
+<p>After performing a half search at the source and target node if there is a route between the source and target then both sets of settled nodes will have nodes in common.</p>
+<p>Given these two result sets, what is the length of the shortest path and which node does it go through.</p>
+<center>
+<table>
+<tr>
+<td>
+<table border="1">
+<thead>
+<tr>
+<th>
+Node
+</th>
+<th>
+Distance
+</th>
+<tr>
+</head>
+<tbody>
+<tr>
+<td>
+A
+</td>
+<td>
+0
+</td>
+<tr>
+<tr>
+<td>
+B
+</td>
+<td>
+3
+</td>
+<tr>
+<tr>
+<td>
+E
+</td>
+<td>
+6
+</td>
+<tr>
+<tr>
+<td>
+G
+</td>
+<td>
+9
+</td>
+<tr>
+</tbody>
+</table>
+</td>
+<td>
+<table border="1">
+<thead>
+<tr>
+<th>
+Node
+</th>
+<th>
+Distance
+</th>
+<tr>
+</head>
+<tbody>
+<tr>
+<td>
+Z
+</td>
+<td>
+0
+</td>
+<tr>
+<tr>
+<td>
+Y
+</td>
+<td>
+1
+</td>
+<tr>
+<tr>
+<td>
+E
+</td>
+<td>
+2
+</td>
+<tr>
+<tr>
+<td>
+F
+</td>
+<td>
+7
+</td>
+<tr>
+<tr>
+<td>
+G
+</td>
+<td>
+8
+</td>
+<tr>
+</tbody>
+</table>
+</td>
+</td>
+</table>
+</center>
+<h1 id="conclusion">Conclusion</h1>
+<p>If you have been able to do all the exercises, you should now be able to implement a very basic implementation of contraction hierarchies that will produce exactly correct results. However, if you did you would find that the algorithm would not perform very poorly. In my testing I found that on a random graph with as little as 1024 nodes (contraction hierarchies are supposed to handle graphs with millions of nodes) would take longer than I was willing to wait.</p>
+<p>There are a number of important improvements to be made, but these will be covered in the next workshop.</p>
+
+        </div>
+        <div id="footer">
+            Powered by cafiniated beverages and 
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

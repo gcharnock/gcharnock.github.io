@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Gareth Charnock - Haskell's do-notation for JavaScript and CoffeeScript</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Gareth Charnock</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Haskell's do-notation for JavaScript and CoffeeScript</h1>
+
+            <div class="info">
+    Posted on May 12, 2015
+    
+</div>
+
+<p>First and foremost, I need to give proper credit to <a href="http://www.jayway.com/2013/12/22/improving-your-functional-coffeescript-and-javascript/">Oskar Wickström</a> for the original idea.</p>
+<h1 id="what-is-do-notation-and-why-should-you-care">What is do notation and why should you care?</h1>
+<p>In Haskell, do notation built in syntactic sugar that is frequently used for creating EDSLs (<a href="http://c2.com/cgi/wiki?EmbeddedDomainSpecificLanguage">embedded domain specific languages</a>). Technically code blocks written in do notation are all monadic computations, but I’m going to leave discussion of the scary “m” word until the end of the post for those who want to know more. For now, you’ll have to trust me when I say that for creating EDSLs do notation sits in a very, very good place in terms of power to weight ratio.</p>
+<p>Let’s see some examples.</p>
+<h2 id="the-basics-of-do-notation">The basics of do notation</h2>
+<p>Let’s look at a basic do block:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">my_computation_that_returns_a_string <span class="fu">=</span> <span class="kw">do</span>
+   a <span class="ot">&lt;-</span> expression_returns_a_number
+   b <span class="ot">&lt;-</span> another_expression_that_returns_a_number
+   return (show a <span class="fu">+</span> b)</code></pre></div>
+<p>Even if you known nothing about Haskell, this syntax is a little suggestive. We seem to be computing two numbers somehow, storing them in variables <code>a</code> and <code>b</code>, and returning the result. Something like this:</p>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span>() {
+   a = expression_that_returns_a_number
+   b = another_expression_that_returns_a_number
+   <span class="kw">return</span> (a + b).<span class="fu">toString</span>()
+}</code></pre></div>
+<p>And indeed, this first approximation is roughly correct. The difference is what goes on as the value passes from the expression on right hand side to the variable on the left much more varied than simply copying the value. What this extra step is depends on the context but it can be often thought of as an unboxing: the value on the right living in some kind of “box” which is opened as we pass to the left hand side. The final value of the entire do-expression is still lives in the same kind of box.</p>
+<p>The specifics of how do notation works for a particular type of “box” can be specified with only functions <code>return</code> (not a keyword in Haskell!) and <code>&gt;&gt;=</code> (called “bind”). <code>return</code> takes a value and puts it in a “box”, and <code>&gt;&gt;=</code> can be thought as the operation that does the unboxing… with some caveats that I’ll get to later.</p>
+<p><strong>As both <code>return</code> and <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind">bind</a> already have meanings in JavaScript, I’m going to stubbornly call them <code>inject</code> and <code>then</code> for now on, yes even in the Haskell examples</strong>. These names are inspired by the <a href="https://www.promisejs.org/">promises</a> specification.</p>
+<h2 id="asynchronous-boxes">Asynchronous Boxes</h2>
+<p>There are many possible types of “boxes” (dare I say “monads”?), such as lists, nullables, and so on but let’s take as our first example something that is going to be very dear to the hearts of the average JavaScript programmer, whether client side while making AJAX requests or server side waiting for databases. Namely values that requires asynchronous calls to be made. Poetically, you could say these are like boxes for values that can’t be opened now, but might be possible to open in the future.</p>
+<p>Let’s try and define our <code>inject</code> and our <code>then</code>. The inject operation swallows a value and wont give up it back unless you provide a callback:</p>
+<pre class="coffeescript"><code>Async.inject = (x) -&gt;
+  (callback) -&gt;
+    process.nextTick () -&gt;
+      callback null, x</code></pre>
+<p>What about <code>then</code>? It has to unbox the boxed value but the interesting thing is that if we want to use all this with asynchronous operations we can’t just implement <code>then</code> in the naive way that takes a box and returns the value in it:</p>
+<pre class="coffeescript"><code>value = Async.then box</code></pre>
+<p>It’s impossible. Some IO might need to happen to know the value and for that to happen the current bit of JavaScript needs to finish so the runtime can run the next waiting callback. You cannot block or wait on IO in JavaScript.</p>
+<p>What if instead of unboxing to the current scope (which is impossible), the value were to be made available in a callback:</p>
+<pre class="coofeescript"><code>Async.then boxed_a (a) -&gt;
+  getBOverHttp &quot;/get?id=#{a}&quot;, (error, result) -&gt;
+    # do something</code></pre>
+<p>The still isn’t useful as errors that occur when opening <code>boxed_a</code> do not get reported and <code>Async.then</code> doesn’t return anything useful. But <em>what if</em> the function passed as the second argument to <code>Async.then</code> was expected to return a box?</p>
+<pre class="coofeescript"><code>boxed_b = Async.then boxed_a (a) -&gt;
+  getBOverHttp.bind null, &quot;/get?id=#{a}&quot;</code></pre>
+<p><code>Async.then</code> could then return a box that when eventually unboxed is the result of unboxing the first box then the second box. If an error occurs on either unboxing, the entire operation fails. The usage would be as follows:</p>
+<pre class="coofeescript"><code>idA = &quot;9275345&quot;
+boxed_a = getAOverHttp.bind null, idA
+boxed_b = Async.then boxed_a (a) -&gt;
+  getBOverHttp.bind null, &quot;/get?id=#{a}&quot;
+boxed_b (error, b) -&gt;
+  if error
+    #There was a problem getting either a or b
+  else
+    do_something_with_b(b)</code></pre>
+<p>The implementation of <code>then</code> is a little hairy but you only ever need to write it once:</p>
+<pre class="coffeescript"><code>Async.then = (boxed_a, f) -&gt;
+  (callback) -&gt;
+    process.nextTick -&gt;
+      boxed_a (error, a) -&gt;
+        if error
+          callback error
+        else
+          boxed_b = f a
+          boxed_b (error, b) -&gt;
+            if error
+              callback error
+            else
+              callback null, b</code></pre>
+<h1 id="using-do-notation">Using do notation</h1>
+<pre class="coffeescript"><code>require &quot;js-do-notation&quot;</code></pre>
+<pre class="coofeescript"><code>idA = &quot;9275345&quot;
+boxed_b = Mdo Async,
+  &quot;a&quot;, -&gt; getAOverHttp.bind null, idA
+  &quot;b&quot;, -&gt; getBOverHttp.bind null, &quot;/get?id=#{@.a}&quot;
+  -&gt; do_something_with_b(@.b)</code></pre>
+<h2 id="desugaring">Desugaring</h2>
+<pre><code>resultm = Mdo Async,
+  &quot;a&quot;, f1,
+  &quot;b&quot;, f2,
+  -&gt; f3</code></pre>
+<pre><code>resultm =
+  Async.then (f1.call {}), (f1_result) -&gt;
+    Async.then (f2.call {&quot;a&quot;: f1_result}), (f2_result) -&gt;
+      Async.then (f3.call {&quot;a&quot;: f1_result, &quot;b&quot;: f2_result})</code></pre>
+<p><code>let</code> bindings are desugared a little differently:</p>
+<pre><code>resultm = Mdo Async,
+  &quot;a&quot;, f1,
+  let, &quot;b&quot;, f2,
+  -&gt; f3</code></pre>
+<pre><code>resultm =
+  Async.then (f1.call {}), (f1_result) -&gt;
+    f2_result = f2.call {&quot;a&quot;: f1_result})
+    Async.then (f3.call {&quot;a&quot;: f1_result, &quot;b&quot;: f2_result})</code></pre>
+<h2 id="let-bindings">Let bindings</h2>
+<pre><code>it &quot;using inject should be optional&quot;, -&gt;
+  result = Mdo Maybe,
+    &quot;a&quot;, -&gt; just 5,
+    let, &quot;b&quot;, -&gt; 6,
+    &quot;c&quot;, -&gt; just 7,
+    -&gt; (@.a + @.b + @.c)
+
+  if result instanceof Nothing
+    assert.fail()
+  else
+    assert.equal 18, result.value</code></pre>
+
+        </div>
+        <div id="footer">
+            Powered by cafiniated beverages and 
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>
