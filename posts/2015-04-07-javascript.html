@@ -38,37 +38,37 @@
 <h1 id="the-basics">The Basics</h1>
 <p>The basic syntax of Javascript exactly as one would expected for a curly brace language. Examples are presented without comment.</p>
 <h2 id="if-statements"><code>if</code> statements:</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">if</span>(<span class="dv">1</span> == <span class="dv">1</span>) {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;This always prints&quot;</span>);
-} <span class="kw">else</span> {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;This is dead code&quot;</span>);
-}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">if</span>(<span class="dv">1</span> <span class="op">==</span> <span class="dv">1</span>) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;This always prints&quot;</span>)<span class="op">;</span>
+<span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;This is dead code&quot;</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <h2 id="loops">loops:</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">for</span>(<span class="kw">var</span> i = <span class="dv">0</span>; i &lt; <span class="dv">10</span>; i++) {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;i = &quot;</span>, i)
-}
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">for</span>(<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">10</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;i = &quot;</span><span class="op">,</span> i)
+<span class="op">}</span>
 
-<span class="kw">while</span>(<span class="kw">true</span>) {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;this is a song that never ever ends,&quot;</span>);
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;yes, it goes on and on, my friends&quot;</span>);
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;some people starting signing it, not knowing what it was,&quot;</span>);
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;and they'll never stop singing it just because,&quot;</span>)
-};</code></pre></div>
+<span class="cf">while</span>(<span class="kw">true</span>) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;this is a song that never ever ends,&quot;</span>)<span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;yes, it goes on and on, my friends&quot;</span>)<span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;some people starting signing it, not knowing what it was,&quot;</span>)<span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;and they'll never stop singing it just because,&quot;</span>)
+<span class="op">};</span></code></pre></div>
 <h2 id="scoping-rules">Scoping rules:</h2>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> x = <span class="dv">1</span>;
-<span class="kw">function</span> <span class="fu">f</span>() {
-    <span class="kw">var</span> x = <span class="dv">2</span>;
-    <span class="ot">console</span>.<span class="fu">log</span>(x) <span class="co">//prints 2</span>
-}
-<span class="ot">console</span>.<span class="fu">log</span>(x) <span class="co">//prints 1</span>
-<span class="fu">f</span>();</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> x <span class="op">=</span> <span class="dv">1</span><span class="op">;</span>
+<span class="kw">function</span> <span class="at">f</span>() <span class="op">{</span>
+    <span class="kw">var</span> x <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(x) <span class="co">//prints 2</span>
+<span class="op">}</span>
+<span class="va">console</span>.<span class="at">log</span>(x) <span class="co">//prints 1</span>
+<span class="at">f</span>()<span class="op">;</span></code></pre></div>
 <p>There is one static type, the <code>var</code>. When declaring variables, <code>var</code> is used exactly as the class name is used in Java.</p>
 <h2 id="order-of-evaluation">Order of evaluation</h2>
 <p>An important difference between JavaScript and some compiled languages such as Java is that in JavaScript executable statements can appear at the top level. In this regard, JavaScript is similar to python. As soon as a <code>.js</code> file is loaded, execution starts at the top and continues down meaning that just loading a <code>.js</code> file is not a benign act.</p>
 <p>It is a good practice, therefore, to make sure that <code>.js</code> files you write do not do supprising things when simply loaded. This situation is analogous to case of static blocks in Java. Be particularly careful when writing libraries.</p>
 <h2 id="strings">Strings</h2>
 <p>JavaScript has strings the work generally as expected. String concatenation is done with the <code>+</code> operator. Things that aren’t strings can be concatenated to strings, and JavaScript will usually do the right thing.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;the meaning of life is &quot;</span> + <span class="dv">42</span>);</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;the meaning of life is &quot;</span> <span class="op">+</span> <span class="dv">42</span>)<span class="op">;</span></code></pre></div>
 <p>Objects, however, by default converted to the string <code>&quot;[object ClassName]&quot;</code>, which is not very helpful in most cases. <code>ClassName</code> is the dynamic type of the object, usually just “<code>Object</code>”.</p>
 <p>Keep the Google search “<code>mdn string</code>” close at hand. In vague order of importance, I consider the following member functions of <code>String</code> particulally useful to have memorised:</p>
 <ul>
@@ -80,31 +80,31 @@
 <p>…never quite got round to learning JavaScript regexes and regex literals. So this section is empty pending some research.</p>
 <h2 id="functions">Functions</h2>
 <p>The first unit of organisation in JavaScript is the function. Functions in JavaScript are declared as follows:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">newFunction</span>() {
-    <span class="kw">return</span> <span class="st">&quot;hello world&quot;</span>
-};
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="fu">newFunction</span>());</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">newFunction</span>() <span class="op">{</span>
+    <span class="cf">return</span> <span class="st">&quot;hello world&quot;</span>
+<span class="op">};</span>
+<span class="va">console</span>.<span class="at">log</span>(<span class="at">newFunction</span>())<span class="op">;</span></code></pre></div>
 <p>The <code>function</code> keyword used this way is a literal and behaves just like other literals such as number-literals and string-literals. For example, as with a number-literal, a function-literal may be assigned to a variable:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> x = <span class="dv">42</span>;
-<span class="kw">var</span> newFunction = <span class="kw">function</span>() {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> x <span class="op">=</span> <span class="dv">42</span><span class="op">;</span>
+<span class="kw">var</span> newFunction <span class="op">=</span> <span class="kw">function</span>() <span class="op">{</span>
 
-};</code></pre></div>
+<span class="op">};</span></code></pre></div>
 <p>This second style is favoured by some JavaScript developers, possibly because it emphasises the status of functions as first class values. The V8 runtime in node 0.12 at least is sufficiently smart to formally associate the variable name with the function formally and consequently use that name in stack traces.</p>
 <p>As with other literals, other things can be done with the value apart from just assigning it to a variable. For example, the function can be invoked with the call, <code>()</code>, operator:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>() {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;The function was called&quot;</span>);
-})()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">(<span class="kw">function</span>() <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;The function was called&quot;</span>)<span class="op">;</span>
+<span class="op">}</span>)()</code></pre></div>
 <p>Not only is this an useful thought experiment for understanding the syntax, but it is a useful <a href="http://en.wikipedia.org/wiki/Immediately-invoked_function_expression">design pattern</a> for splitting JavaScript into models. This design pattern is less useful in node as <code>require</code> does something very similar to this implicitly.</p>
 <p>You can also pass function-literals as arguments, in the same way you could pass number-literals as arguments. So this:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">someApiFunction</span>(<span class="dv">42</span>, <span class="kw">function</span>(error, result){
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">someApiFunction</span>(<span class="dv">42</span><span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result)<span class="op">{</span>
 
-});</code></pre></div>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>is the same as:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myNumber = <span class="dv">42</span>;
-<span class="kw">var</span> myFunction = <span class="kw">function</span>(error, result) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myNumber <span class="op">=</span> <span class="dv">42</span><span class="op">;</span>
+<span class="kw">var</span> myFunction <span class="op">=</span> <span class="kw">function</span>(error<span class="op">,</span> result) <span class="op">{</span>
     
-});
-<span class="fu">someApiFunction</span>(myNumber, myFunction);</code></pre></div>
+<span class="op">}</span>)<span class="op">;</span>
+<span class="at">someApiFunction</span>(myNumber<span class="op">,</span> myFunction)<span class="op">;</span></code></pre></div>
 <p>The former can sometimes be a cleaner way to do things as it keeps everything in one place. Of course, this is always a matter of judgement and debate.</p>
 <h2 id="object-and-object-literals">Object and Object Literals</h2>
 <p>All values in JavaScript that are not <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures">primatives</a>, that is, are not one of:</p>
@@ -117,58 +117,58 @@
 </ul>
 <p>are objects. Notice that functions were not on that list; functions are objects.</p>
 <p>In JavaScript a value that is an object is simply something that can have properties set on it.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myObject = {}
-<span class="ot">myObject</span>.<span class="fu">someProperty</span> = <span class="st">&quot;hello world&quot;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myObject <span class="op">=</span> <span class="op">{}</span>
+<span class="va">myObject</span>.<span class="at">someProperty</span> <span class="op">=</span> <span class="st">&quot;hello world&quot;</span>
 <span class="co">//Prints &quot;Hello World&quot;</span>
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">myObject</span>.<span class="fu">someProperty</span>)</code></pre></div>
+<span class="va">console</span>.<span class="at">log</span>(<span class="va">myObject</span>.<span class="at">someProperty</span>)</code></pre></div>
 <p>The <code>{}</code> in this example was the empty object literal. Contrast the above with:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myString = <span class="st">&quot;&quot;</span>
-<span class="ot">myString</span>.<span class="fu">someProperty</span> = <span class="st">&quot;hello world&quot;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myString <span class="op">=</span> <span class="st">&quot;&quot;</span>
+<span class="va">myString</span>.<span class="at">someProperty</span> <span class="op">=</span> <span class="st">&quot;hello world&quot;</span>
 <span class="co">//Prints &quot;undefined&quot;</span>
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">myString</span>.<span class="fu">someProperty</span>)</code></pre></div>
+<span class="va">console</span>.<span class="at">log</span>(<span class="va">myString</span>.<span class="at">someProperty</span>)</code></pre></div>
 <p>Strings are not objects. There is an alternate syntax for accessing properties of objects using <code>[]</code> brackets.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myObject = {}
-myObject[<span class="st">&quot;someProperty&quot;</span>] = <span class="st">&quot;hello world&quot;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myObject <span class="op">=</span> <span class="op">{}</span>
+myObject[<span class="st">&quot;someProperty&quot;</span>] <span class="op">=</span> <span class="st">&quot;hello world&quot;</span>
 <span class="co">//Prints &quot;Hello World&quot;</span>
-<span class="ot">console</span>.<span class="fu">log</span>(myObject[<span class="st">&quot;someProperty&quot;</span>])
+<span class="va">console</span>.<span class="at">log</span>(myObject[<span class="st">&quot;someProperty&quot;</span>])
 <span class="co">//Also prints &quot;Hello World&quot;</span>
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="ot">myObject</span>.<span class="fu">someProperty</span>)</code></pre></div>
+<span class="va">console</span>.<span class="at">log</span>(<span class="va">myObject</span>.<span class="at">someProperty</span>)</code></pre></div>
 <p>This syntax can be used to set or access properties that are not valid identifiers, such as numbers and keywords:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myObject = {}
-myObject[<span class="st">&quot;function&quot;</span>] = <span class="st">&quot;hello world&quot;</span>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myObject <span class="op">=</span> <span class="op">{}</span>
+myObject[<span class="st">&quot;function&quot;</span>] <span class="op">=</span> <span class="st">&quot;hello world&quot;</span>
 <span class="co">//Prints &quot;Hello World&quot;</span>
-<span class="ot">console</span>.<span class="fu">log</span>(myObject[<span class="st">&quot;function&quot;</span>])
+<span class="va">console</span>.<span class="at">log</span>(myObject[<span class="st">&quot;function&quot;</span>])
 <span class="co">//would not compile</span>
 <span class="co">//console.log(myObject.function)</span></code></pre></div>
 <p>Unless writing code that is meant to introspect other code, it is generally a bad idea to mix access via <code>[]</code> with access via the dot operator. This is because typically when <code>[]</code> is sued then the property name isn’t known until runtime and if it isn’t going to be known until runtime and if it isn’t known until runtime then that is almost certainly because it comes from some external, possibly untrusted source. Consider the following example:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> dumbCache = {}
-<span class="ot">dumbCache</span>.<span class="fu">set</span> = <span class="kw">function</span>(name, value) {
-    dumbCache[name] = value;
-}
-<span class="ot">dumbCache</span>.<span class="fu">get</span> = <span class="kw">function</span>(name) {
-    <span class="kw">return</span> dumbCache[name];
-}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> dumbCache <span class="op">=</span> <span class="op">{}</span>
+<span class="va">dumbCache</span>.<span class="at">set</span> <span class="op">=</span> <span class="kw">function</span>(name<span class="op">,</span> value) <span class="op">{</span>
+    dumbCache[name] <span class="op">=</span> value<span class="op">;</span>
+<span class="op">}</span>
+<span class="va">dumbCache</span>.<span class="at">get</span> <span class="op">=</span> <span class="kw">function</span>(name) <span class="op">{</span>
+    <span class="cf">return</span> dumbCache[name]<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>Everything words fine until <code>name</code> is <code>&quot;get&quot;</code> or <code>&quot;set&quot;</code>.</p>
 <h3 id="object-literals">Object Literals</h3>
 <p>A feature of JavaScript that is fairly unique are object literals. This idea used to be very surprising to newcomers from other languages were such things simply don’t exist, but thanks to the prevalence of JSON these days this is less the case. Nevertheless, object literals can be more than just plain JSON.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o = {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o <span class="op">=</span> <span class="op">{</span>
     <span class="co">// unlike JSON, comments are allowed</span>
-    <span class="st">&quot;propertyName&quot;</span>:<span class="st">&quot;propertyValue&quot;</span>,
+    <span class="st">&quot;propertyName&quot;</span><span class="op">:</span><span class="st">&quot;propertyValue&quot;</span><span class="op">,</span>
 
     <span class="co">// the LHS does not need to be a string</span>
-    <span class="dt">property2</span>:<span class="st">&quot;value 2&quot;</span>,
+    <span class="dt">property2</span><span class="op">:</span><span class="st">&quot;value 2&quot;</span><span class="op">,</span>
 
     <span class="co">//Indeed, it can be a number</span>
-    <span class="dv">3</span>: <span class="st">&quot;value 3&quot;</span>,
+    <span class="dv">3</span><span class="op">:</span> <span class="st">&quot;value 3&quot;</span><span class="op">,</span>
 
-    <span class="dt">property4</span>: <span class="kw">function</span>() {
-        <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;And of course, values can be things&quot;</span>);
-        <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;that are not allowed in plain JSON&quot;</span>);
-    }
-}</code></pre></div>
+    <span class="dt">property4</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;And of course, values can be things&quot;</span>)<span class="op">;</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;that are not allowed in plain JSON&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
 <h2 id="arrays">Arrays</h2>
 <p>Arrays are a special type of object that come with extra methods. They have a literal:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myArray = [<span class="st">&quot;element 1&quot;</span>, <span class="st">&quot;element 2&quot;</span>, <span class="st">&quot;element 3&quot;</span>];</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> myArray <span class="op">=</span> [<span class="st">&quot;element 1&quot;</span><span class="op">,</span> <span class="st">&quot;element 2&quot;</span><span class="op">,</span> <span class="st">&quot;element 3&quot;</span>]<span class="op">;</span></code></pre></div>
 <p>Keep the Google search <code>mdn array</code> close at hand. In vague order of importance, I consider the following member functions of <code>Array</code> particulally useful to have memorised:</p>
 <ul>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push">push</a></li>
@@ -182,76 +182,76 @@ myObject[<span class="st">&quot;function&quot;</span>] = <span class="st">&quot;
 </ul>
 <h2 id="json-support">JSON support</h2>
 <p>JavaScript has native support for parsing and serialising object to and from <a href="http://json.org/">JSON</a>.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> json_string = <span class="ot">JSON</span>.<span class="fu">stringify</span>({<span class="dt">hello</span>:<span class="st">&quot;world&quot;</span>});
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> json_string <span class="op">=</span> <span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span><span class="dt">hello</span><span class="op">:</span><span class="st">&quot;world&quot;</span><span class="op">}</span>)<span class="op">;</span>
 
-<span class="kw">try</span> {
-    <span class="kw">var</span> resultantObject = <span class="ot">JSON</span>.<span class="fu">parse</span>(json_string);
-} <span class="kw">catch</span>(e) {
-    <span class="ot">console</span>.<span class="fu">error</span>(<span class="st">&quot;Parsing error, &quot;</span>, e);
-}</code></pre></div>
+<span class="cf">try</span> <span class="op">{</span>
+    <span class="kw">var</span> resultantObject <span class="op">=</span> <span class="va">JSON</span>.<span class="at">parse</span>(json_string)<span class="op">;</span>
+<span class="op">}</span> <span class="cf">catch</span>(e) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">error</span>(<span class="st">&quot;Parsing error, &quot;</span><span class="op">,</span> e)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p><strong><em>Never</em></strong> parse JSON using <code>eval</code>:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> this_is_json_honest = <span class="st">&quot;yourBank.giveMeYourMoney()&quot;</span>;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> this_is_json_honest <span class="op">=</span> <span class="st">&quot;yourBank.giveMeYourMoney()&quot;</span><span class="op">;</span>
 
-<span class="kw">var</span> o = <span class="fu">eval</span>(this_is_json_honest);</code></pre></div>
+<span class="kw">var</span> o <span class="op">=</span> <span class="at">eval</span>(this_is_json_honest)<span class="op">;</span></code></pre></div>
 <p>In fact, just never use <code>eval</code>.</p>
 <p>The output of <code>JSON.stringify</code> is very compact—good for networks but not for reading. But it possible to get more human readable output from <code>JSON.stringify</code>:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">JSON</span>.<span class="fu">stringify</span>({<span class="dt">hello</span>:<span class="st">&quot;world&quot;</span>}, <span class="kw">null</span>, <span class="st">&quot;    &quot;</span>);</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span><span class="dt">hello</span><span class="op">:</span><span class="st">&quot;world&quot;</span><span class="op">},</span> <span class="kw">null</span><span class="op">,</span> <span class="st">&quot;    &quot;</span>)<span class="op">;</span></code></pre></div>
 <p>The string argument signifies what indentation to use. You could pass a tab character instead. The following also works:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">JSON</span>.<span class="fu">stringify</span>({<span class="dt">hello</span>:<span class="st">&quot;world&quot;</span>}, <span class="kw">null</span>, <span class="dv">4</span>);</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">JSON</span>.<span class="at">stringify</span>(<span class="op">{</span><span class="dt">hello</span><span class="op">:</span><span class="st">&quot;world&quot;</span><span class="op">},</span> <span class="kw">null</span><span class="op">,</span> <span class="dv">4</span>)<span class="op">;</span></code></pre></div>
 <h1 id="more-on-functions">More on functions</h1>
 <h2 id="closures">Closures</h2>
 <p>Invocations of functions in JavaScript form what are known as <a href="http://en.wikipedia.org/wiki/Closure_%28computer_programming%29">closures</a>. These are absolutely critical and are quite possibly one of JavaScript’s few saving graces.</p>
 <p>Consider the example that follows. It works exactly as expected.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">add</span>(n) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">add</span>(n) <span class="op">{</span>
     <span class="co">//Precompute as much of the log line as possible.</span>
     <span class="co">//There isn't a good reason to do this for log lines, but</span>
     <span class="co">//if this were a expensive operation computing it here would</span>
     <span class="co">//be good</span>
-    <span class="kw">var</span> logLine = <span class="st">&quot;The user is trying to add &quot;</span> + n + <span class="st">&quot; to &quot;</span>;
-    <span class="kw">return</span> <span class="kw">function</span>(m) {
-        <span class="ot">console</span>.<span class="fu">log</span>(logLine + m);
-        <span class="kw">return</span> n + m;
-    }
-};
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;should be 3:&quot;</span>, <span class="fu">add</span>(<span class="dv">1</span>)(<span class="dv">2</span>));
-<span class="kw">var</span> add1 = <span class="fu">add</span>(<span class="dv">1</span>);
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;should also be 3:&quot;</span>, <span class="fu">add1</span>(<span class="dv">2</span>))
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;should also be 4:&quot;</span>, <span class="fu">add1</span>(<span class="dv">4</span>))</code></pre></div>
+    <span class="kw">var</span> logLine <span class="op">=</span> <span class="st">&quot;The user is trying to add &quot;</span> <span class="op">+</span> n <span class="op">+</span> <span class="st">&quot; to &quot;</span><span class="op">;</span>
+    <span class="cf">return</span> <span class="kw">function</span>(m) <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(logLine <span class="op">+</span> m)<span class="op">;</span>
+        <span class="cf">return</span> n <span class="op">+</span> m<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">};</span>
+<span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;should be 3:&quot;</span><span class="op">,</span> <span class="at">add</span>(<span class="dv">1</span>)(<span class="dv">2</span>))<span class="op">;</span>
+<span class="kw">var</span> add1 <span class="op">=</span> <span class="at">add</span>(<span class="dv">1</span>)<span class="op">;</span>
+<span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;should also be 3:&quot;</span><span class="op">,</span> <span class="at">add1</span>(<span class="dv">2</span>))
+<span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;should also be 4:&quot;</span><span class="op">,</span> <span class="at">add1</span>(<span class="dv">4</span>))</code></pre></div>
 <p>How? The answer is that even after the invocation of <code>add</code> return, the variables <code>n</code> and <code>logLine</code> stay in scope and are still accessible when the inner function in invoked.</p>
 <p>Without this feature callback based IO would be absolutely intolerable.</p>
 <h3 id="poor-mans-objects">“Poor man’s objects”</h3>
 <p>Closures are the only way to hide internal state inside an object in a truly foolproof way. Here is a silly number store example where the invariant is that the number contained is even. The constraint is absolutely guaranteed by the interface.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">createNewEvenNumberStore</span>(startingN) {
-    <span class="kw">var</span> alwaysEven;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">createNewEvenNumberStore</span>(startingN) <span class="op">{</span>
+    <span class="kw">var</span> alwaysEven<span class="op">;</span>
 
-    <span class="kw">function</span> <span class="fu">set</span>(n) {
-        <span class="kw">if</span> (!<span class="fu">isEven</span>(n)) {
-            <span class="fu">reportError</span>(<span class="st">&quot;That's not even&quot;</span>);
-        } <span class="kw">else</span> {
-            alwaysEven = n;
-        }
-    }
+    <span class="kw">function</span> <span class="at">set</span>(n) <span class="op">{</span>
+        <span class="cf">if</span> (<span class="op">!</span><span class="at">isEven</span>(n)) <span class="op">{</span>
+            <span class="at">reportError</span>(<span class="st">&quot;That's not even&quot;</span>)<span class="op">;</span>
+        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+            alwaysEven <span class="op">=</span> n<span class="op">;</span>
+        <span class="op">}</span>
+    <span class="op">}</span>
 
-    <span class="kw">function</span> <span class="fu">get</span>() {
-        <span class="kw">return</span> alwaysEven;
-    };
+    <span class="kw">function</span> <span class="at">get</span>() <span class="op">{</span>
+        <span class="cf">return</span> alwaysEven<span class="op">;</span>
+    <span class="op">};</span>
 
     <span class="co">//Private &quot;member&quot; functions</span>
-    <span class="kw">function</span> <span class="fu">isEven</span>(n) {
-        <span class="kw">return</span> (n % <span class="dv">2</span>) == <span class="dv">0</span>
-    }
-    <span class="kw">function</span> <span class="fu">reportError</span>(msg) {
-        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(msg);
-    }
+    <span class="kw">function</span> <span class="at">isEven</span>(n) <span class="op">{</span>
+        <span class="cf">return</span> (n <span class="op">%</span> <span class="dv">2</span>) <span class="op">==</span> <span class="dv">0</span>
+    <span class="op">}</span>
+    <span class="kw">function</span> <span class="at">reportError</span>(msg) <span class="op">{</span>
+        <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(msg)<span class="op">;</span>
+    <span class="op">}</span>
 
-    <span class="fu">set</span>(startingN);
+    <span class="at">set</span>(startingN)<span class="op">;</span>
 
     <span class="co">//Export an interface</span>
-    <span class="kw">return</span> {
-        <span class="dt">set</span>:set,
-        <span class="dt">get</span>:get
-    }
-}</code></pre></div>
+    <span class="cf">return</span> <span class="op">{</span>
+        <span class="dt">set</span><span class="op">:</span>set<span class="op">,</span>
+        <span class="dt">get</span><span class="op">:</span>get
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
 <h2 id="member-functions-of-functions">Member functions of functions</h2>
 <p>Like “<code>mdn array</code>”, keep the Google search “<code>mdn function</code>” close at hand. Here are the three member functions of function that I consider most useful:</p>
 <ul>
@@ -262,131 +262,131 @@ myObject[<span class="st">&quot;function&quot;</span>] = <span class="st">&quot;
 <p><code>bind</code> is very useful when used along with the <a href="https://github.com/caolan/async">Async Library</a>. <code>call</code> just like bind except, as the name suggests, the function is called immediately. <code>apply</code> is like <code>bind</code> but it accepts the arguments all at once in the form of an array. If you’re using <code>apply</code>, it probably means you’re trying to do something “clever”, so be careful with it.</p>
 <h2 id="variadic-functions">Variadic functions</h2>
 <p>You can pass as many arguments as you feel like providing when calling a function in JavaScript. Missing arguments have the value <code>undefined</code>. Extra arguments are not explicitly bound to any name.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">f</span>(x, y) {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;x = &quot;</span>, x, <span class="st">&quot; y = &quot;</span>, y);
-}
-<span class="fu">f</span>(<span class="dv">1</span>)  <span class="co">// prints &quot;x = 1, y = undefined&quot;</span>
-<span class="fu">f</span>(<span class="dv">1</span>, <span class="dv">2</span>)  <span class="co">// prints &quot;x = 1, y = 2&quot;</span>
-<span class="fu">f</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co">// prints &quot;x = 1, y = 2&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">f</span>(x<span class="op">,</span> y) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;x = &quot;</span><span class="op">,</span> x<span class="op">,</span> <span class="st">&quot; y = &quot;</span><span class="op">,</span> y)<span class="op">;</span>
+<span class="op">}</span>
+<span class="at">f</span>(<span class="dv">1</span>)  <span class="co">// prints &quot;x = 1, y = undefined&quot;</span>
+<span class="at">f</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)  <span class="co">// prints &quot;x = 1, y = 2&quot;</span>
+<span class="at">f</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>) <span class="co">// prints &quot;x = 1, y = 2&quot;</span></code></pre></div>
 <p>How can the values of the extra arguments be accessed? In every function body a special symbol <code>arguments</code> is defined. This object behaves almost like an array.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">f</span>() {
-    <span class="kw">var</span> out = <span class="st">&quot;&quot;</span>;
-    <span class="kw">for</span>(<span class="kw">var</span> i = <span class="dv">0</span>; i &lt; <span class="ot">arguments</span>.<span class="fu">length</span>; i++) {
-        out += <span class="st">&quot;arguments[&quot;</span> + i + <span class="st">&quot;] = &quot;</span> + arguments[i] + <span class="st">&quot;, &quot;</span>;
-    }
-    <span class="ot">console</span>.<span class="fu">log</span>(out);
-}
-<span class="fu">f</span>(<span class="dv">1</span>)  <span class="co">// arguments[0] = 1,</span>
-<span class="fu">f</span>(<span class="dv">1</span>, <span class="dv">2</span>)  <span class="co">// arguments[0] = 1, arguments[1] = 2, </span>
-<span class="fu">f</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="co">// arguments[0] = 1, arguments[1] = 2, arguments[2] = 3, </span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">f</span>() <span class="op">{</span>
+    <span class="kw">var</span> out <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">;</span>
+    <span class="cf">for</span>(<span class="kw">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="va">arguments</span>.<span class="at">length</span><span class="op">;</span> i<span class="op">++</span>) <span class="op">{</span>
+        out <span class="op">+=</span> <span class="st">&quot;arguments[&quot;</span> <span class="op">+</span> i <span class="op">+</span> <span class="st">&quot;] = &quot;</span> <span class="op">+</span> arguments[i] <span class="op">+</span> <span class="st">&quot;, &quot;</span><span class="op">;</span>
+    <span class="op">}</span>
+    <span class="va">console</span>.<span class="at">log</span>(out)<span class="op">;</span>
+<span class="op">}</span>
+<span class="at">f</span>(<span class="dv">1</span>)  <span class="co">// arguments[0] = 1,</span>
+<span class="at">f</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span>)  <span class="co">// arguments[0] = 1, arguments[1] = 2, </span>
+<span class="at">f</span>(<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span>) <span class="co">// arguments[0] = 1, arguments[1] = 2, arguments[2] = 3, </span></code></pre></div>
 <p>But the <code>arguments</code> object is not quite an array. The following, more functional, way of writing the above that doesn’t suffer from the extraneous comma doesn’t work:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">f</span>() {
-    <span class="kw">var</span> out = <span class="ot">arguments</span>.<span class="fu">map</span>(<span class="kw">function</span>(a, i) {
-        <span class="kw">return</span> <span class="st">&quot;arguments[&quot;</span> + i + <span class="st">&quot;] = &quot;</span> + a;
-    }).<span class="fu">reduce</span>(<span class="kw">function</span>(a1, a2){
-        <span class="kw">return</span> a1 + <span class="st">&quot;, &quot;</span> a2;
-    });
-    <span class="ot">console</span>.<span class="fu">log</span>(out);
-}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">f</span>() <span class="op">{</span>
+    <span class="kw">var</span> out <span class="op">=</span> <span class="va">arguments</span>.<span class="at">map</span>(<span class="kw">function</span>(a<span class="op">,</span> i) <span class="op">{</span>
+        <span class="cf">return</span> <span class="st">&quot;arguments[&quot;</span> <span class="op">+</span> i <span class="op">+</span> <span class="st">&quot;] = &quot;</span> <span class="op">+</span> a<span class="op">;</span>
+    <span class="op">}</span>).<span class="at">reduce</span>(<span class="kw">function</span>(a1<span class="op">,</span> a2)<span class="op">{</span>
+        <span class="cf">return</span> a1 <span class="op">+</span> <span class="st">&quot;, &quot;</span> a2<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="va">console</span>.<span class="at">log</span>(out)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>because <code>arguments</code> lacks standard <code>Array</code> functions.</p>
 <h2 id="the-execution-context-and-this">The execution context and <code>this</code></h2>
 <p>Every function in JavaScript executes in a particular execution context. In practical terms the execution context defines what value the <code>this</code> keyword is bound to. <em>The execution context is determined by the way a function is called</em>.</p>
 <p>When a function is <em>directly</em> accessed via the dot operator of an object:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">object</span>.<span class="fu">myFunction</span>();</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">object</span>.<span class="at">myFunction</span>()<span class="op">;</span></code></pre></div>
 <p>Then <code>this</code> will refer to the object. This is exactly the same as in Java and the behaviour produced is familiar;</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> objectX = {
-    <span class="dt">msg </span>: <span class="st">&quot;objectX&quot;</span>,
-    <span class="dt">f </span>: <span class="kw">function</span>() {
-        <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;this points to &quot;</span> + <span class="kw">this</span>.<span class="fu">msg</span>);
-    }
-}
-<span class="ot">objectX</span>.<span class="fu">f</span>(); <span class="co">//prints &quot;this points to objectX&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> objectX <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">msg </span><span class="op">:</span> <span class="st">&quot;objectX&quot;</span><span class="op">,</span>
+    <span class="dt">f </span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;this points to &quot;</span> <span class="op">+</span> <span class="kw">this</span>.<span class="at">msg</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>
+<span class="va">objectX</span>.<span class="at">f</span>()<span class="op">;</span> <span class="co">//prints &quot;this points to objectX&quot;</span></code></pre></div>
 <p>This behaviour is also true when the function is <em>directly</em> accessed via the <code>[]</code> operator:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">objectX[<span class="st">&quot;f&quot;</span>](); <span class="co">//prints &quot;this points to objectX&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">objectX[<span class="st">&quot;f&quot;</span>]()<span class="op">;</span> <span class="co">//prints &quot;this points to objectX&quot;</span></code></pre></div>
 <p>However, only direct references trigger this behaviour:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> f = <span class="ot">objectX</span>.<span class="fu">f</span>;
-<span class="fu">f</span>(); <span class="co">//prints &quot;this points to undefined&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> f <span class="op">=</span> <span class="va">objectX</span>.<span class="at">f</span><span class="op">;</span>
+<span class="at">f</span>()<span class="op">;</span> <span class="co">//prints &quot;this points to undefined&quot;</span></code></pre></div>
 <p>If you were really paying attention, you may have noticed that the above did not throw an exception meaning that <code>this</code> must have been defined and non-null even if it didn’t have <code>msg</code> as a property. What did it refer to?</p>
 <p>It referred to the top level object.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> msg = <span class="st">&quot;top level object&quot;</span>;
-<span class="fu">f</span>(); <span class="co">//prints &quot;this points to top level object&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> msg <span class="op">=</span> <span class="st">&quot;top level object&quot;</span><span class="op">;</span>
+<span class="at">f</span>()<span class="op">;</span> <span class="co">//prints &quot;this points to top level object&quot;</span></code></pre></div>
 <p>Here is a final example to drive this point home. The function is copied to a new object and the meaning of the this point changes on invocations:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> objectY = {
-    <span class="dt">msg </span>: <span class="st">&quot;objectY&quot;</span>
-}
-<span class="ot">objectY</span>.<span class="fu">f</span> = <span class="ot">objectX</span>.<span class="fu">f</span>;
-<span class="ot">objectY</span>.<span class="fu">f</span>(); <span class="co">// prints &quot;this points to objectY&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> objectY <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">msg </span><span class="op">:</span> <span class="st">&quot;objectY&quot;</span>
+<span class="op">}</span>
+<span class="va">objectY</span>.<span class="at">f</span> <span class="op">=</span> <span class="va">objectX</span>.<span class="at">f</span><span class="op">;</span>
+<span class="va">objectY</span>.<span class="at">f</span>()<span class="op">;</span> <span class="co">// prints &quot;this points to objectY&quot;</span></code></pre></div>
 <p>The execution context can be set explicitly with <code>bind</code>, <code>call</code>, or <code>apply</code>. Suppose we have a reference to an object <code>guiWidget</code> and a function <code>callback</code> that needs to be called in the context of that object. In this case <code>call</code> can be used:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">callback</span>.<span class="fu">call</span>(guiWidget, arg1, arg2, arg3);</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">callback</span>.<span class="at">call</span>(guiWidget<span class="op">,</span> arg1<span class="op">,</span> arg2<span class="op">,</span> arg3)<span class="op">;</span></code></pre></div>
 <h3 id="this-and-that"><code>this</code> and <code>that</code></h3>
 <p>Not all APIs that allow callbacks are considerate enough to call you back in a particular execution context.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o = {
-    <span class="dt">memberFunction</span>: <span class="kw">function</span>() {
-        <span class="kw">var</span> that = <span class="kw">this</span>;
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> o <span class="op">=</span> <span class="op">{</span>
+    <span class="dt">memberFunction</span><span class="op">:</span> <span class="kw">function</span>() <span class="op">{</span>
+        <span class="kw">var</span> that <span class="op">=</span> <span class="kw">this</span><span class="op">;</span>
 
-        <span class="fu">externalAPI</span>(<span class="kw">function</span>(error, result) {
+        <span class="at">externalAPI</span>(<span class="kw">function</span>(error<span class="op">,</span> result) <span class="op">{</span>
             <span class="co">//this no longer points to anything interesting</span>
-            <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;this.x = &quot;</span>, <span class="kw">this</span>.<span class="fu">x</span>);
+            <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;this.x = &quot;</span><span class="op">,</span> <span class="kw">this</span>.<span class="at">x</span>)<span class="op">;</span>
             <span class="co">//but using that does</span>
-            <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;that.x = &quot;</span>, <span class="ot">that</span>.<span class="fu">x</span>);
-        });
-    },
-    <span class="dt">x </span>: <span class="st">&quot;member variable&quot;</span>
-}</code></pre></div>
+            <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;that.x = &quot;</span><span class="op">,</span> <span class="va">that</span>.<span class="at">x</span>)<span class="op">;</span>
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">},</span>
+    <span class="dt">x </span><span class="op">:</span> <span class="st">&quot;member variable&quot;</span>
+<span class="op">}</span></code></pre></div>
 <p>Of course, you can avoid all these problems by simply not using functions that refer to <code>this</code>. Partial application and closures will get you a long way.</p>
 <h1 id="threading-and-io">Threading and IO</h1>
 <p>A curious feature guaranteed by JavaScript is that it is inherently single threaded. Even upcoming standards such as <a href="http://en.wikipedia.org/wiki/Web_worker">Web Workers</a> do not change this, instead they provide a standard API for completely separated environment. This feature has the result nice property that many concurrency issues just don’t arise in JavaScript. The downside is that it is unsafe to block or take too long calculating something.</p>
 <p>This is a problem for IO, as doing IO generally involves waiting for around some external hardware to do something. Sometimes, as in the case of random disk access, the amount of time we have to wait can be a very, very long time indeed, like a few milliseconds.</p>
 <p>Hey, CPUs are fast.</p>
 <p>So when doing IO in Node and AJAX in the browser a callback is provided. The runtime will call the callback and some later point the future.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">doHttpGet</span>(<span class="st">&quot;https://www.google.com&quot;</span>, <span class="kw">function</span>(error, result){
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">doHttpGet</span>(<span class="st">&quot;https://www.google.com&quot;</span><span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result)<span class="op">{</span>
     <span class="co">//Check the error first</span>
-    <span class="kw">if</span>(error != <span class="kw">null</span>) {
+    <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
         <span class="co">//Handle the error</span>
-    } <span class="kw">else</span> {
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
         <span class="co">//otherwise, we can rely on the result</span>
-        <span class="fu">doTheThing</span>(result);
-    }
-});</code></pre></div>
+        <span class="at">doTheThing</span>(result)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <h2 id="error-handling">Error handling</h2>
 <p>If you want to derail a node evangelist, just ask them about error handling…</p>
 <h3 id="throwable-errors">Throwable errors</h3>
 <p>JavaScript <code>try</code>/<code>throw</code>/<code>catch</code> system that should be quite familiar to JavaScript and C++ developers.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">try</span> {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">try</span> <span class="op">{</span>
     <span class="co">//This block is guarded</span>
-    <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;This is some message&quot;</span>);
-} <span class="kw">catch</span>(error) {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Well that didn't work.&quot;</span>, error);
-}</code></pre></div>
+    <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;This is some message&quot;</span>)<span class="op">;</span>
+<span class="op">}</span> <span class="cf">catch</span>(error) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Well that didn't work.&quot;</span><span class="op">,</span> error)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>The only obvious deficiency over Java and C++ is the lack of the ability to only catch certain classes of exception. Distinguishing between different error requires testing properties of actual error. It’s <em>still</em> a good idea to only handle exceptions you were expecting and know how to handle:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">try</span> {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">try</span> <span class="op">{</span>
     <span class="co">// ...</span>
-} <span class="kw">catch</span>(error) {
-    <span class="kw">if</span>(<span class="ot">error</span>.<span class="fu">type</span> &amp;&amp; <span class="ot">error</span>.<span class="fu">type</span> == <span class="st">&quot;fileNotFound&quot;</span>) {
-        <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Oh, I know this one.&quot;</span>);
-        <span class="fu">handleFileNotFound</span>();
-    } <span class="kw">else</span> {
-        <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;What the jam!?&quot;</span>, error);
-        <span class="kw">throw</span> error
-    }
-}</code></pre></div>
+<span class="op">}</span> <span class="cf">catch</span>(error) <span class="op">{</span>
+    <span class="cf">if</span>(<span class="va">error</span>.<span class="at">type</span> <span class="op">&amp;&amp;</span> <span class="va">error</span>.<span class="at">type</span> <span class="op">==</span> <span class="st">&quot;fileNotFound&quot;</span>) <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Oh, I know this one.&quot;</span>)<span class="op">;</span>
+        <span class="at">handleFileNotFound</span>()<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;What the jam!?&quot;</span><span class="op">,</span> error)<span class="op">;</span>
+        <span class="cf">throw</span> error
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
 <p>See the “gotchas” section for one example of why.</p>
 <h3 id="signalling-errors-in-a-asynchronous-context">Signalling Errors in a asynchronous context</h3>
 <p>Throwing errors isn’t suitable in a asynchronous context. Consider the following attempt, which <em>does not do what you might expect</em>:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">try</span> {
-    <span class="fu">doHttpGet</span>(<span class="st">&quot;https://invalid-url.com/bad/path&quot;</span>, <span class="kw">function</span>(error, result) {
-        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;catch me&quot;</span>);
-    });
-} <span class="kw">catch</span>(error) {
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Why am I never being printed?&quot;</span>);
-}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="cf">try</span> <span class="op">{</span>
+    <span class="at">doHttpGet</span>(<span class="st">&quot;https://invalid-url.com/bad/path&quot;</span><span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result) <span class="op">{</span>
+        <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;catch me&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span> <span class="cf">catch</span>(error) <span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Why am I never being printed?&quot;</span>)<span class="op">;</span>
+<span class="op">}</span></code></pre></div>
 <p>Why is the error not caught? It’s because all that <code>doHttpGet</code> actually does is start the runtime doing some IO and register a callback for later use. After that, it returns. At a later date, an on a completely different call stack, the callback in invoked and only then does and error get thrown.</p>
 <h3 id="the-error-result-convention">The <code>(error, result)</code> convention</h3>
 <p>In JavaScript, and particularly in node there is a nearly universal convention for how callbacks are formatted that solves the error signalling problem. The first argument is always the error and subsequent arguments are the actual results. The advantage of this convention is that you need to at least name a variable before you can access the result.</p>
 <p>The unused parameter in the following example looks fishy:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">doHttpGet</span>(<span class="st">&quot;https://invalid-url.com/bad/path&quot;</span>, <span class="kw">function</span>(error, result){
-    <span class="fu">doSomething</span>(result);
-});</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">doHttpGet</span>(<span class="st">&quot;https://invalid-url.com/bad/path&quot;</span><span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result)<span class="op">{</span>
+    <span class="at">doSomething</span>(result)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>If the <code>error</code> parameter isn’t undefined or null, it’s a very bad idea to assume anything about the result unless the docs for the specific API you are using say otherwise.</p>
 <p>Further reading: <a href="https://www.joyent.com/developers/node/design/errors">Error Handling in Node.js</a>, Joyent</p>
 <p>Examples of APIs using <code>(error, result)</code> convention:</p>
@@ -399,25 +399,25 @@ myObject[<span class="st">&quot;function&quot;</span>] = <span class="st">&quot;
 <p>Todo</p>
 <h3 id="error-handling-gotchas">Error handling gotchas</h3>
 <p>What’s wrong with the following code? This is based of a real example of production code?</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">getData</span>(callback) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">getData</span>(callback) <span class="op">{</span>
     <span class="co">// ...</span>
-    <span class="kw">try</span> {
-        <span class="fu">callback</span>(<span class="kw">null</span>, <span class="ot">JSON</span>.<span class="fu">parse</span>(data));
-    } <span class="kw">catch</span>(error) {
-        <span class="fu">callback</span>(<span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Error parsing JSON&quot;</span>));
-    }
-}</code></pre></div>
+    <span class="cf">try</span> <span class="op">{</span>
+        <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> <span class="va">JSON</span>.<span class="at">parse</span>(data))<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">catch</span>(error) <span class="op">{</span>
+        <span class="at">callback</span>(<span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Error parsing JSON&quot;</span>))<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
 <p>Looks okay. JSON.parse is throws and error when it fails to parse something, and catching this ASAP is good practice. What else could go wrong? The code in the try block also doesn’t do much other that parsing and passing the results on to callback.</p>
 <p>What if callback throws an exception? This situation is particularly likely if domains are being used. Let’s say the client code looked like this:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">getData</span>(<span class="kw">function</span>(error, data){
-    <span class="kw">if</span>(error != <span class="kw">null</span>) {
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">getData</span>(<span class="kw">function</span>(error<span class="op">,</span> data)<span class="op">{</span>
+    <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
         <span class="co">//We'll just let our enveloping domain handle it.</span>
-        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;Error occurred getting&quot;</span>);
-    } <span class="kw">else</span> {
+        <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;Error occurred getting&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
         <span class="co">//Do stuff</span>
-        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">Error</span>(<span class="st">&quot;something else went wrong&quot;</span>);
-    }
-});</code></pre></div>
+        <span class="cf">throw</span> <span class="kw">new</span> <span class="at">Error</span>(<span class="st">&quot;something else went wrong&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>Step through how the client and library code interact carefully to see the train wreck. Log messages will probably talk about parsing errors but an investigation will reveal the JSON is just fine.</p>
 <p>Basically throwing an error from inside a callback can be very risky because library code is generally what will be at the bottom of the call stack, in contrast to the situation in Java where the bottom of the call stack is generally application code (or at least whatever <a href="http://spring.io/">all encompassing</a> framework is being used).</p>
 <h3 id="how-does-javascript-report-programming-errors">How does javascript report programming errors?</h3>
@@ -425,43 +425,43 @@ myObject[<span class="st">&quot;function&quot;</span>] = <span class="st">&quot;
 <h2 id="setimmediate-and-process.nexttick"><code>setImmediate</code> and <code>process.nextTick</code></h2>
 <p>In addition to doing real IO, the functions <code>setImmediate</code> and <code>process.nextTick</code> can be used to ask the runtime to delay execution of the function passed to them until at least after the current execution returns to the runtime.</p>
 <p>What order do the following console.log lines print?</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;A&quot;</span>);
-<span class="ot">process</span>.<span class="fu">nextTick</span>(<span class="kw">function</span>(){
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;B&quot;</span>);
-});
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;A&quot;</span>)<span class="op">;</span>
+<span class="va">process</span>.<span class="at">nextTick</span>(<span class="kw">function</span>()<span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;B&quot;</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
 
-<span class="ot">process</span>.<span class="fu">nextTick</span>(<span class="kw">function</span>(){
-    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;C&quot;</span>);
-});
-<span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;D&quot;</span>);</code></pre></div>
+<span class="va">process</span>.<span class="at">nextTick</span>(<span class="kw">function</span>()<span class="op">{</span>
+    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;C&quot;</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span>
+<span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;D&quot;</span>)<span class="op">;</span></code></pre></div>
 <p>Answer: <code>A</code>, <code>D</code>, then either <code>B</code>, <code>C</code> <em>or</em> <code>C</code>, <code>B</code>. Actually, I don’t know if node guarantees some sort of order here but it’s probably a bad idea to depend on one. Node does <a href="https://nodejs.org/api/process.html#process_process_nexttick_callback">guarantee</a> that the code runs before any IO actions or timers return.</p>
 <p>Here is a non-trivial example involving a closure, to pieces of IO and proper (if verbose-mode) error handling:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">createFirstPostTextClient</span>(host, port) {
-    <span class="kw">return</span> <span class="kw">function</span>(blogId, callback) {
-        <span class="fu">doHttpGet</span>(host + <span class="st">&quot;:&quot;</span> + port + <span class="st">&quot;/blogs&quot;</span>, <span class="kw">function</span>(error, blog) {
-            <span class="kw">if</span>(error != <span class="kw">null</span>) {
-                <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Error getting /blogs&quot;</span>, error);
-                <span class="fu">callback</span>(error);
-                <span class="kw">return</span>;
-            }
-            <span class="kw">var</span> firstPostId = <span class="ot">blog</span>.<span class="fu">posts</span>[<span class="dv">0</span>];
-            <span class="kw">var</span> path = host + <span class="st">&quot;:&quot;</span> + port + <span class="st">&quot;/posts&quot;</span> + firstPostId;
-            <span class="fu">doHttpGet</span>(path, <span class="kw">function</span>(error, post) {
-                <span class="kw">if</span>(error != <span class="kw">null</span>) {
-                    <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;Error getting /posts&quot;</span>, error);
-                    <span class="fu">callback</span>(error);
-                    <span class="kw">return</span>;
-                }
-                <span class="fu">callback</span>(<span class="kw">null</span>, <span class="ot">post</span>.<span class="fu">text</span>);
-            })
-        });
-    }
-}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">createFirstPostTextClient</span>(host<span class="op">,</span> port) <span class="op">{</span>
+    <span class="cf">return</span> <span class="kw">function</span>(blogId<span class="op">,</span> callback) <span class="op">{</span>
+        <span class="at">doHttpGet</span>(host <span class="op">+</span> <span class="st">&quot;:&quot;</span> <span class="op">+</span> port <span class="op">+</span> <span class="st">&quot;/blogs&quot;</span><span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> blog) <span class="op">{</span>
+            <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+                <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Error getting /blogs&quot;</span><span class="op">,</span> error)<span class="op">;</span>
+                <span class="at">callback</span>(error)<span class="op">;</span>
+                <span class="cf">return</span><span class="op">;</span>
+            <span class="op">}</span>
+            <span class="kw">var</span> firstPostId <span class="op">=</span> <span class="va">blog</span>.<span class="at">posts</span>[<span class="dv">0</span>]<span class="op">;</span>
+            <span class="kw">var</span> path <span class="op">=</span> host <span class="op">+</span> <span class="st">&quot;:&quot;</span> <span class="op">+</span> port <span class="op">+</span> <span class="st">&quot;/posts&quot;</span> <span class="op">+</span> firstPostId<span class="op">;</span>
+            <span class="at">doHttpGet</span>(path<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> post) <span class="op">{</span>
+                <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+                    <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;Error getting /posts&quot;</span><span class="op">,</span> error)<span class="op">;</span>
+                    <span class="at">callback</span>(error)<span class="op">;</span>
+                    <span class="cf">return</span><span class="op">;</span>
+                <span class="op">}</span>
+                <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> <span class="va">post</span>.<span class="at">text</span>)<span class="op">;</span>
+            <span class="op">}</span>)
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
 <h1 id="miscellanea">Miscellanea</h1>
 <h2 id="semicolons">Semicolons</h2>
 <p>Semicolons are optional but most style guides recommend using them. This is because there are situations in JavaScript where the lack of a semicolon will matter. The classic example is:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">a = b + c
-(d + e).<span class="fu">print</span>()</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">a <span class="op">=</span> b <span class="op">+</span> c
+(d <span class="op">+</span> e).<span class="at">print</span>()</code></pre></div>
 <p>Which relies on the second line starting with a opening bracket.</p>
 <p>Personally, I find the number of times I’ve been tripped up by forgetting semicolons is very, very, very small. Whether I remember to use them tends to come down to whether I was more recently coding in semicolon bound languages such as Java or C++ or semicolon-free languages such as Haskell, Python, or JavaScript.</p>
 <p>A very detailed discussion on the issue can be found here <a href="here">http://inimino.org/~inimino/blog/javascript_semicolons</a>.</p>
@@ -469,162 +469,162 @@ myObject[<span class="st">&quot;function&quot;</span>] = <span class="st">&quot;
 <h2 id="async">Async</h2>
 <p>The <a href="https://github.com/caolan/async">Async Library</a> contains a collection of higher order functions that will be familiar to functional programmers “lifted” to work asynchronously. The documentation is pretty good so there isn’t really any point in repeating it here, but there is one very useful trick that can be used to ensure that the library does the heavy lifting of error passing.</p>
 <p>Consider the following example. The objective is to get <code>A</code> and <code>B</code>, process them, and return the result. All error handling is explicit.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> getA = <span class="fu">require</span>(<span class="st">&quot;getA&quot;</span>);
-<span class="kw">var</span> getB = <span class="fu">require</span>(<span class="st">&quot;getB&quot;</span>);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> getA <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;getA&quot;</span>)<span class="op">;</span>
+<span class="kw">var</span> getB <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;getB&quot;</span>)<span class="op">;</span>
 
 <span class="co">//&quot;library&quot; code</span>
-<span class="kw">function</span> <span class="fu">getAll</span>(params, callback) {
-    <span class="fu">getA</span>(params, <span class="kw">function</span>(error, A) {
-        <span class="kw">if</span>(error != <span class="kw">null</span>) {
-            <span class="fu">callback</span>(error);
-        }
-        <span class="fu">getB</span>(A, <span class="kw">function</span>(error, B) {
-            <span class="kw">if</span>(error != <span class="kw">null</span>) {
-                <span class="fu">callback</span>(error);
-            }
-            <span class="kw">var</span> result = <span class="fu">process</span>(A, B);
-            <span class="fu">callback</span>(<span class="kw">null</span>, result);
-        });
-    });
-);
+<span class="kw">function</span> <span class="at">getAll</span>(params<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="at">getA</span>(params<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> A) <span class="op">{</span>
+        <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+            <span class="at">callback</span>(error)<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="at">getB</span>(A<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> B) <span class="op">{</span>
+            <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+                <span class="at">callback</span>(error)<span class="op">;</span>
+            <span class="op">}</span>
+            <span class="kw">var</span> result <span class="op">=</span> <span class="at">process</span>(A<span class="op">,</span> B)<span class="op">;</span>
+            <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> result)<span class="op">;</span>
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+)<span class="op">;</span>
 <span class="co">//Client code, which knows how to handle errors</span>
-<span class="fu">getAll</span>(myParams, <span class="kw">function</span>(error, result){
-    <span class="kw">if</span>(error != <span class="kw">null</span>) {
-        <span class="ot">console</span>.<span class="fu">log</span>(<span class="st">&quot;An error occured&quot;</span>);
-    } <span class="kw">else</span> {
+<span class="at">getAll</span>(myParams<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result)<span class="op">{</span>
+    <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+        <span class="va">console</span>.<span class="at">log</span>(<span class="st">&quot;An error occured&quot;</span>)<span class="op">;</span>
+    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span>
 
-    }
-});</code></pre></div>
+    <span class="op">}</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>By using <code>async.waterfall</code>, in a naive way the situation can be improved somewhat:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">getAll</span>(params, callback) {
-    <span class="ot">async</span>.<span class="fu">waterfall</span>([
-        <span class="kw">function</span>(callback){
-            <span class="fu">getA</span>(params, <span class="kw">function</span>(error, result){
-                <span class="fu">callback</span>(error, result);
-            })
-        },
-        <span class="kw">function</span>(A, callback){
-            <span class="fu">getB</span>(A, <span class="kw">function</span>(error, B){
-                <span class="fu">callback</span>(error, A, B);
-            })
-        }
-    ], <span class="kw">function</span>(error, A, B){
-        <span class="kw">if</span>(error != <span class="kw">null</span>) {
-            <span class="fu">callback</span>(error);
-        }
-        <span class="kw">var</span> result = <span class="fu">process</span>(A, B);
-        <span class="fu">callback</span>(<span class="kw">null</span>, result);
-    })
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">getAll</span>(params<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="va">async</span>.<span class="at">waterfall</span>([
+        <span class="kw">function</span>(callback)<span class="op">{</span>
+            <span class="at">getA</span>(params<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result)<span class="op">{</span>
+                <span class="at">callback</span>(error<span class="op">,</span> result)<span class="op">;</span>
+            <span class="op">}</span>)
+        <span class="op">},</span>
+        <span class="kw">function</span>(A<span class="op">,</span> callback)<span class="op">{</span>
+            <span class="at">getB</span>(A<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> B)<span class="op">{</span>
+                <span class="at">callback</span>(error<span class="op">,</span> A<span class="op">,</span> B)<span class="op">;</span>
+            <span class="op">}</span>)
+        <span class="op">}</span>
+    ]<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> A<span class="op">,</span> B)<span class="op">{</span>
+        <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+            <span class="at">callback</span>(error)<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="kw">var</span> result <span class="op">=</span> <span class="at">process</span>(A<span class="op">,</span> B)<span class="op">;</span>
+        <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> result)<span class="op">;</span>
+    <span class="op">}</span>)
+<span class="op">};</span>
 <span class="co">//Client code is unchanged</span></code></pre></div>
 <p>There are less explicit checks of the error but the code is still quite messy and hard to read. The first improvement is to notice that the function that wraps <code>getA</code> doesn’t really do anything other than have only one argument. It is otherwise just the same as <code>getA</code> with its first argument fixed. Therefore, we can just partially apply <code>getA</code>.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">getAll</span>(params, callback) {
-    <span class="ot">async</span>.<span class="fu">waterfall</span>([
-       <span class="ot">getA</span>.<span class="fu">bind</span>(<span class="kw">null</span>, params),
-       <span class="kw">function</span>(A, callback){
-           <span class="fu">getB</span>(A, <span class="kw">function</span>(error, B){
-               <span class="fu">callback</span>(error, A, B);
-           })
-       }
-    ], <span class="kw">function</span>(error, result){
-        <span class="kw">if</span>(error != <span class="kw">null</span>) {
-            <span class="fu">callback</span>(error);
-        }
-        <span class="kw">var</span> result = <span class="fu">process</span>(A, B);
-        <span class="fu">callback</span>(<span class="kw">null</span>, result);
-    })
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">getAll</span>(params<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="va">async</span>.<span class="at">waterfall</span>([
+       <span class="va">getA</span>.<span class="at">bind</span>(<span class="kw">null</span><span class="op">,</span> params)<span class="op">,</span>
+       <span class="kw">function</span>(A<span class="op">,</span> callback)<span class="op">{</span>
+           <span class="at">getB</span>(A<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> B)<span class="op">{</span>
+               <span class="at">callback</span>(error<span class="op">,</span> A<span class="op">,</span> B)<span class="op">;</span>
+           <span class="op">}</span>)
+       <span class="op">}</span>
+    ]<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result)<span class="op">{</span>
+        <span class="cf">if</span>(error <span class="op">!=</span> <span class="kw">null</span>) <span class="op">{</span>
+            <span class="at">callback</span>(error)<span class="op">;</span>
+        <span class="op">}</span>
+        <span class="kw">var</span> result <span class="op">=</span> <span class="at">process</span>(A<span class="op">,</span> B)<span class="op">;</span>
+        <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> result)<span class="op">;</span>
+    <span class="op">}</span>)
+<span class="op">};</span>
 <span class="co">//Client code is unchanged</span></code></pre></div>
 <p>The second problem is that the callback supplied to <code>async.waterfall</code> is mixing concerns. It’s handling errors (well, not in any real way, as it’s just passing them along) <em>and</em> doing logic. Let’s fix that:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">getAll</span>(params, callback) {
-    <span class="ot">async</span>.<span class="fu">waterfall</span>([
-       <span class="ot">getA</span>.<span class="fu">bind</span>(<span class="kw">null</span>, params),
-       <span class="kw">function</span>(A, callback){
-           <span class="fu">getB</span>(A, <span class="kw">function</span>(error, B){
-               <span class="fu">callback</span>(error, A, B);
-           })
-       },
-       <span class="kw">function</span>(A, B, callback){
-           <span class="kw">var</span> result = <span class="fu">process</span>(A, B);
-           <span class="fu">callback</span>(<span class="kw">null</span>, result);
-       }
-    ], <span class="kw">function</span>(error, result){
-        <span class="fu">callback</span>(error, result);
-    })
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">getAll</span>(params<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="va">async</span>.<span class="at">waterfall</span>([
+       <span class="va">getA</span>.<span class="at">bind</span>(<span class="kw">null</span><span class="op">,</span> params)<span class="op">,</span>
+       <span class="kw">function</span>(A<span class="op">,</span> callback)<span class="op">{</span>
+           <span class="at">getB</span>(A<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> B)<span class="op">{</span>
+               <span class="at">callback</span>(error<span class="op">,</span> A<span class="op">,</span> B)<span class="op">;</span>
+           <span class="op">}</span>)
+       <span class="op">},</span>
+       <span class="kw">function</span>(A<span class="op">,</span> B<span class="op">,</span> callback)<span class="op">{</span>
+           <span class="kw">var</span> result <span class="op">=</span> <span class="at">process</span>(A<span class="op">,</span> B)<span class="op">;</span>
+           <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> result)<span class="op">;</span>
+       <span class="op">}</span>
+    ]<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> result)<span class="op">{</span>
+        <span class="at">callback</span>(error<span class="op">,</span> result)<span class="op">;</span>
+    <span class="op">}</span>)
+<span class="op">};</span>
 <span class="co">//Client code is unchanged</span></code></pre></div>
 <p>Better, but as with <code>getA</code> earlier the callback passed to <code>async.waterfall</code> isn’t really doing anything.</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="fu">getAll</span>(params, callback) {
-    <span class="ot">async</span>.<span class="fu">waterfall</span>([
-       <span class="ot">getA</span>.<span class="fu">bind</span>(<span class="kw">null</span>, params),
-       <span class="kw">function</span>(A, callback){
-           <span class="fu">getB</span>(A, <span class="kw">function</span>(error, B){
-               <span class="fu">callback</span>(error, A, B);
-           })
-       },
-       <span class="kw">function</span>(A, B, callback){
-           <span class="kw">var</span> result = <span class="fu">process</span>(A, B);
-           <span class="fu">callback</span>(<span class="kw">null</span>, result);
-       }
-    ], callback)
-};
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">getAll</span>(params<span class="op">,</span> callback) <span class="op">{</span>
+    <span class="va">async</span>.<span class="at">waterfall</span>([
+       <span class="va">getA</span>.<span class="at">bind</span>(<span class="kw">null</span><span class="op">,</span> params)<span class="op">,</span>
+       <span class="kw">function</span>(A<span class="op">,</span> callback)<span class="op">{</span>
+           <span class="at">getB</span>(A<span class="op">,</span> <span class="kw">function</span>(error<span class="op">,</span> B)<span class="op">{</span>
+               <span class="at">callback</span>(error<span class="op">,</span> A<span class="op">,</span> B)<span class="op">;</span>
+           <span class="op">}</span>)
+       <span class="op">},</span>
+       <span class="kw">function</span>(A<span class="op">,</span> B<span class="op">,</span> callback)<span class="op">{</span>
+           <span class="kw">var</span> result <span class="op">=</span> <span class="at">process</span>(A<span class="op">,</span> B)<span class="op">;</span>
+           <span class="at">callback</span>(<span class="kw">null</span><span class="op">,</span> result)<span class="op">;</span>
+       <span class="op">}</span>
+    ]<span class="op">,</span> callback)
+<span class="op">};</span>
 <span class="co">//Client code is unchanged</span></code></pre></div>
 <p>And now all the explicit error handling code has been pushed to the client, where it belongs. This kind of transformation is always possible. The mathematical reason is that failures from a monad and if this and other examples were pushed harder we would end up reinventing <a href="https://www.promisejs.org/">promises</a>.</p>
 <h2 id="tricks-for-mocha">Tricks for Mocha</h2>
 <p>Two test running frameworks for JavaScript are <a href="http://mochajs.org/">Mocha</a> and <a href="http://jasmine.github.io/">Jasmine</a>. They define basically the same API that was based on <a href="http://rspec.info/">RSepc</a> for Ruby but each differ from each other and RSpec in the details.</p>
 <p>Suffix <code>.only</code> on a describe block to run only that block:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="ot">describe</span>.<span class="fu">only</span>(<span class="st">&quot;Thing under test&quot;</span>, <span class="kw">function</span>(){
-    <span class="fu">it</span>(<span class="st">&quot;property 1&quot;</span>, <span class="kw">function</span>(){
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="va">describe</span>.<span class="at">only</span>(<span class="st">&quot;Thing under test&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+    <span class="at">it</span>(<span class="st">&quot;property 1&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
         <span class="co">//asserts here</span>
-    });
-    <span class="fu">it</span>(<span class="st">&quot;property 2&quot;</span>, <span class="kw">function</span>(){
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="at">it</span>(<span class="st">&quot;property 2&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
         <span class="co">//asserts here</span>
-    });
-});</code></pre></div>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>The reason this is possible is that <code>describe</code> is an object as well as a function, and so can have it’s own properties that a functions.</p>
 <p>Suffix <code>.only</code> on a single test to only run that test:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">describe</span>(<span class="st">&quot;Thing under test&quot;</span>, <span class="kw">function</span>(){
-    <span class="ot">it</span>.<span class="fu">only</span>(<span class="st">&quot;property 1&quot;</span>, <span class="kw">function</span>(){
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">describe</span>(<span class="st">&quot;Thing under test&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+    <span class="va">it</span>.<span class="at">only</span>(<span class="st">&quot;property 1&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
         <span class="co">//asserts here</span>
-    });
-    <span class="fu">it</span>(<span class="st">&quot;property 2&quot;</span>, <span class="kw">function</span>(){
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="at">it</span>(<span class="st">&quot;property 2&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
         <span class="co">//not run</span>
-    });
-});</code></pre></div>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>Sometimes there is cause to nest <code>describe</code>s, and mocha supports this:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">describe</span>(<span class="st">&quot;Some API&quot;</span>, <span class="kw">function</span>(){
-    <span class="fu">describe</span>(<span class="st">&quot;API Call 1&quot;</span>, <span class="kw">function</span>(){
-        <span class="fu">it</span>(<span class="st">&quot;success case&quot;</span>, <span class="kw">function</span>(){
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">describe</span>(<span class="st">&quot;Some API&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+    <span class="at">describe</span>(<span class="st">&quot;API Call 1&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+        <span class="at">it</span>(<span class="st">&quot;success case&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
             <span class="co">//asserts here</span>
-        });
-        <span class="fu">it</span>(<span class="st">&quot;error case&quot;</span>, <span class="kw">function</span>(){
+        <span class="op">}</span>)<span class="op">;</span>
+        <span class="at">it</span>(<span class="st">&quot;error case&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
             <span class="co">//asserts here</span>
-        });
-    });
-    <span class="fu">describe</span>(<span class="st">&quot;API Call 2&quot;</span>, <span class="kw">function</span>(){
-        <span class="fu">it</span>(<span class="st">&quot;success case&quot;</span>, <span class="kw">function</span>(){
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="at">describe</span>(<span class="st">&quot;API Call 2&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+        <span class="at">it</span>(<span class="st">&quot;success case&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
             <span class="co">//asserts here</span>
-        });
-        <span class="fu">it</span>(<span class="st">&quot;error case&quot;</span>, <span class="kw">function</span>(){
+        <span class="op">}</span>)<span class="op">;</span>
+        <span class="at">it</span>(<span class="st">&quot;error case&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
             <span class="co">//asserts here</span>
-        });
-    });
-});</code></pre></div>
+        <span class="op">}</span>)<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p>The body of <code>describe</code> is a regular function body, so all the intuition about closures still applies:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="fu">describe</span>(<span class="st">&quot;Some API&quot;</span>, <span class="kw">function</span>(){
-    <span class="kw">var</span> someTestFixture = <span class="kw">null</span>;
-    <span class="fu">before</span>(<span class="kw">function</span>(){
-        someTestFixture = <span class="fu">makeTestFixture</span>();
-    });
-    <span class="fu">it</span>(<span class="st">&quot;case 1&quot;</span>, <span class="kw">function</span>(){
-        <span class="ot">someTestFixture</span>.<span class="fu">doThis</span>();
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="at">describe</span>(<span class="st">&quot;Some API&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+    <span class="kw">var</span> someTestFixture <span class="op">=</span> <span class="kw">null</span><span class="op">;</span>
+    <span class="at">before</span>(<span class="kw">function</span>()<span class="op">{</span>
+        someTestFixture <span class="op">=</span> <span class="at">makeTestFixture</span>()<span class="op">;</span>
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="at">it</span>(<span class="st">&quot;case 1&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+        <span class="va">someTestFixture</span>.<span class="at">doThis</span>()<span class="op">;</span>
         <span class="co">//asserts here</span>
-    });
-    <span class="fu">it</span>(<span class="st">&quot;case 2&quot;</span>, <span class="kw">function</span>(){
-        <span class="ot">someTestFixture</span>.<span class="fu">doThat</span>();
+    <span class="op">}</span>)<span class="op">;</span>
+    <span class="at">it</span>(<span class="st">&quot;case 2&quot;</span><span class="op">,</span> <span class="kw">function</span>()<span class="op">{</span>
+        <span class="va">someTestFixture</span>.<span class="at">doThat</span>()<span class="op">;</span>
         <span class="co">//asserts here</span>
-    });
-});</code></pre></div>
+    <span class="op">}</span>)<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 
         </div>
         <div id="footer">

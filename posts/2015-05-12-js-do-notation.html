@@ -36,11 +36,11 @@
    b <span class="ot">&lt;-</span> another_expression_that_returns_a_number
    return (show a <span class="fu">+</span> b)</code></pre></div>
 <p>Even if you known nothing about Haskell, this syntax is a little suggestive. We seem to be computing two numbers somehow, storing them in variables <code>a</code> and <code>b</code>, and returning the result. Something like this:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span>() {
-   a = expression_that_returns_a_number
-   b = another_expression_that_returns_a_number
-   <span class="kw">return</span> (a + b).<span class="fu">toString</span>()
-}</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span>() <span class="op">{</span>
+   a <span class="op">=</span> expression_that_returns_a_number
+   b <span class="op">=</span> another_expression_that_returns_a_number
+   <span class="cf">return</span> (a <span class="op">+</span> b).<span class="at">toString</span>()
+<span class="op">}</span></code></pre></div>
 <p>And indeed, this first approximation is roughly correct. The difference is what goes on as the value passes from the expression on right hand side to the variable on the left much more varied than simply copying the value. What this extra step is depends on the context but it can be often thought of as an unboxing: the value on the right living in some kind of “box” which is opened as we pass to the left hand side. The final value of the entire do-expression is still lives in the same kind of box.</p>
 <p>The specifics of how do notation works for a particular type of “box” can be specified with only functions <code>return</code> (not a keyword in Haskell!) and <code>&gt;&gt;=</code> (called “bind”). <code>return</code> takes a value and puts it in a “box”, and <code>&gt;&gt;=</code> can be thought as the operation that does the unboxing… with some caveats that I’ll get to later.</p>
 <p><strong>As both <code>return</code> and <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind">bind</a> already have meanings in JavaScript, I’m going to stubbornly call them <code>inject</code> and <code>then</code> for now on, yes even in the Haskell examples</strong>. These names are inspired by the <a href="https://www.promisejs.org/">promises</a> specification.</p>

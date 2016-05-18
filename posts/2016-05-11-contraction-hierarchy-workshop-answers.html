@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Gareth Charnock - Contraction Hierarchies Workshop: Answers to Exersises</title>
+        <link rel="stylesheet" type="text/css" href="../css/default.css" />
+        <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div id="header">
+            <div id="logo">
+                <a href="../">Gareth Charnock</a>
+            </div>
+            <div id="navigation">
+                <a href="../">Home</a>
+            </div>
+        </div>
+
+        <div id="content">
+            <h1>Contraction Hierarchies Workshop: Answers to Exersises</h1>
+
+            <div class="info">
+    Posted on May 11, 2016
+    
+</div>
+
+<h1 id="workshop-1">Workshop 1</h1>
+<strong>Exersise 2</strong>
+<center>
+<img src="../svg/basic-contraction-answer.svg" alt />
+</center>
+<strong>Exersise 3</strong>
+<center>
+<img src="../svg/basic-contraction-02-answer.svg" alt />
+</center>
+<strong>Exersise 4 (a)</strong>
+<center>
+<img src="../svg/basic-contraction-04-answer.svg" alt />
+</center>
+<p><strong>Exersise 4 (b)</strong> The second graph does not change. Ordering (a) is best because some shortcuts have been added that will alow searches to skip over some nodes where as with (b) nothing has been gained.</p>
+<p><strong>Exersise 5</strong></p>
+<center>
+<img src="../svg/basic-contraction-03-answer.svg" alt />
+</center>
+<ol style="list-style-type: decimal">
+<li>C is settled. D, E, F are added to the queue with priorities 1, 1, and 2. A is skipped as it of a lower contraction order.</li>
+<li>Either E or D could be visited next depending on the queue, as they are the same distance. We will Assume D is settled next. Edges to E and F are followed but do not result in an improvement.</li>
+<li>E is visited. The edge to F is followed, but does not result in an improvement.</li>
+<li>F is visited. The edge to B is <strong>not</strong> followed, as B is of a lower contraction order than F.</li>
+<li>The algorithm terminates outputting C: 0, D: 1, E: 1, F: 2.</li>
+</ol>
+<h1 id="workshop-2">Workshop 2</h1>
+<p><strong>Exersise 1</strong> B and C could be removed.</p>
+<p><strong>Exersise 2</strong> The path u-v-w must be longer than either u-c-w or some other path from u to w as a shotcut was not created from u to w when c was contracted. So considering u-c-w again would not affect the result.</p>
+<p>For the case where c represents multiple nodes, the contraction process ensures that if there was a shortest path, P, through c, after the contraction shortcuts would have been created so that there would be a path from u to w of the same length as P. Once again, considering the path that goes through c does not affect the result.</p>
+<p><strong>Exersise 3</strong> A Dijkstra search from u to w will consider the path u-v-w. As the length of u-v-w equals the length of u-v-w no shortcuts will ever be created. <strong>Note</strong>: This issue can be incorrectly fixed by requiring witness paths to be strictly shorter than the u-v-w. This will make the algorithm work, but the contracted graph will be denser than it could be.</p>
+<p><strong>Exersise 4</strong> A: -1, B: -2, C: +15</p>
+<p><strong>Exersise 4</strong> A: -1, B: -2, C: +15</p>
+<p><strong>Exersise 5</strong></p>
+<div class="figure">
+<img src="../svg/basic-contraction-04b.svg" alt />
+
+</div>
+<p>**Exersise 6*</p>
+
+        </div>
+        <div id="footer">
+            Powered by cafiniated beverages and 
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </div>
+    </body>
+</html>

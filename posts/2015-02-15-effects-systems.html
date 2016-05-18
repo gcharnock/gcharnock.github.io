@@ -33,23 +33,23 @@
 <p>If if every interaction with the outside world is just <code>IO</code>, is that it? <code>IO</code> or not <code>IO</code>, that is the question? Well, not quite. But first, let’s talk about a real problem that happened to me this week trying to do something in node.</p>
 <h1 id="an-aside-into-config-loaded">An aside into config loaded</h1>
 <p>We’ve been developing a particular app for a while and it was finally time to make it load it’s configuration properly (from an S3 bucket in Amazon, as it happens) rather than a file that <code>require</code>. And this is where we discovered our oversight. Even though we’d been good and tried to keep all our configurable values localised, we’d made the assumption that they could be loaded synchronously and that assumption had spread everywhere. Things like:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> config = <span class="fu">require</span>(<span class="st">&quot;config&quot;</span>);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> config <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;config&quot;</span>)<span class="op">;</span>
 
 <span class="co">//Do stuff with config</span></code></pre></div>
 <p>were spread all over the place.</p>
 <p>The first obvious solution is to hack the config.js so that it fetches the data from Amazon and returns it so the change is transparent to the rest of the code, caching subsequent calls to require, of course. Of course, if you know anything about node, you know that does not work. You fundamentally cannot wait on a asynchronous call to make it synchronous.</p>
 <p>There is also a “maybe good enough” solution where the program entry point loads the config, caches it, and then calls the other requires that start things moving. Something like:</p>
-<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> configLoader = <span class="fu">require</span>(<span class="st">&quot;configLoader&quot;</span>);
+<div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">var</span> configLoader <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;configLoader&quot;</span>)<span class="op">;</span>
 
 <span class="co">/*</span>
 <span class="co">//would throw an exception</span>
 <span class="co">app = require(&quot;theApp&quot;);</span>
 <span class="co">*/</span>
 
-<span class="ot">configLoader</span>.<span class="fu">loadConfig</span>(<span class="kw">function</span>() {
-    app = <span class="fu">require</span>(<span class="st">&quot;theApp&quot;</span>); <span class="co">//Works now</span>
-    <span class="ot">app</span>.<span class="fu">startStuffHappening</span>();
-});</code></pre></div>
+<span class="va">configLoader</span>.<span class="at">loadConfig</span>(<span class="kw">function</span>() <span class="op">{</span>
+    app <span class="op">=</span> <span class="at">require</span>(<span class="st">&quot;theApp&quot;</span>)<span class="op">;</span> <span class="co">//Works now</span>
+    <span class="va">app</span>.<span class="at">startStuffHappening</span>()<span class="op">;</span>
+<span class="op">}</span>)<span class="op">;</span></code></pre></div>
 <p><code>require(&quot;config&quot;)</code> works again but throws a nice informative error if the config happens to be not loaded. Oh, and every single test that implicitly relied on config being loaded now fails and needs to be rewritten.</p>
 <p>If you think about it, the app can be in one of two states. At any one moment, config is either loaded or not. If it’s not loaded there are certain operations that simply cannot be done but the only way to find out that an operation needed the config to be loaded was at runtime, reading the documentation, or carefully examining the code and any code that code depends on.</p>
 <h1 id="environments">Environments</h1>
