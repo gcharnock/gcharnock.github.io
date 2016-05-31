@@ -27,77 +27,84 @@
 
 <p>At the end of the last workshop, you should feel confident that you could produce a bare bones implementation of the contraction hierarchies algorithm, however this implementation would be perform woefully on nearly any graph of appreciable size. In this workshop we will improve on this.</p>
 <h1 id="witness-paths">Witness Paths</h1>
-<p>One of the most easy to understand improvements is to avoid creating shortcuts if a so called <strong>witness path</strong> exists. A witness path is any route through the uncontracted nodes that is shorter than the shortcut that is about to be created. If a witness path is exists, the creation of the shortcut edge <em>MAY</em> be skipped.</p>
-<p><strong>Exersise 1</strong> Which of these proposed shortcuts <em>could</em> be removed?</p>
+<p>One of the most easy to understand improvements is to avoid creating shortcuts if a so called <strong>witness path</strong> exists. A witness path is a path through the uncontracted nodes, <em>not including the node to be contracted</em>, that is shorter than the shortcut that is about to be created. If a witness path is exists, the creation of the shortcut edge <em>MAY</em> be skipped.</p>
+<p><strong>Exercise 1</strong> Which of these proposed shortcuts <em>could</em> be removed?</p>
 <center>
 <img src="../svg/witness-01.svg" alt />
 </center>
-<p>Consider the following invariant:</p>
-<p><em>After a node is contracted from a graph, all shortest paths in the remaining uncontracted graph must remain the same.</em></p>
-<p><strong>Exersise 2</strong> This one is hard. Consider the following statement:</p>
-<p><em>A witness path search is done between u and v. Due to a bug, a path through c, in the contracted part of the graph, is considered. Why does this not affect the correctness of the decision to add the shortcut, only the runtime?</em></p>
-<p>Can you convince yourself it is true? Why is it still true if c is replaced by a series of nodes? Hint: remember the invariant.</p>
+<p>Hint: remember that the following contraction principle must be true. <em>After a node is contracted, the lengths of the shortest paths between nodes in the remaining uncontracted part of the graph must remain the same.</em></p>
+<p><strong>Exercise 2</strong> This one is hard and is based on an actual bug in my own code. Consider the following statement:</p>
+<p><em>A witness path search is done between u and v. Due to a bug, a path through c, in the contracted part of the graph, is considered. This does this not affect the correctness of the decision to add the shortcut, only the runtime?</em></p>
+<p>Can you convince yourself it is true? Why is it still true if c is replaced by a series of nodes? Hint: remember the principle from exercise 1.</p>
 <center>
 <img src="../svg/incorrect-witness-path-brainteaser.svg" alt />
 </center>
 <p>As a bonus, can you extend your explanation to cover the case where instead of going through one node, the bad search goes through many nodes so long as v is excluded?</p>
 <p>This one is based on a real bug from my implementation attempt:</p>
-<p><strong>Exersise 3</strong> It might be tempting to implement the witness path search as a normal Dijkstra search from u to w. Why is this incorrect?</p>
+<p><strong>Exercise 3</strong> It might be tempting to implement the witness path search as a normal Dijkstra search from u to w. Why might this result in unnecessary shortcuts?</p>
 <h1 id="contraction-order">Contraction Order</h1>
-<p>Using a good contraction order is vital to successfully using contraction hierarchies on large graph. Geisberger’s strategy here was to come up with a multitude of measures of suitability and combine them to produce an assessment.</p>
-<p>We must update the contraction algorithm from the last workshop with a priority queue to keep track of the assessments of each node:</p>
+<p>Using a good contraction order is vital to successfully using contraction hierarchies on large graph. Geisberger’s strategy here was to come up with a multitude of measures of suitability and combine them to produce a score for each node.</p>
+<p>In an ideal world, we would recompute the score for each node after every contraction is done but for large graphs this becomes impractical. Instead all nodes are scored once when the algorithm starts and scores are recomputed for the immediate neighbours of a node after a contraction is done. A priority queue is used to keep track of the tentative ordering.</p>
+<p>The updated contraction algorithm is as follows:</p>
 <pre><code>input: a graph, G
 
 create a priority queue, Q
 
 for every node, n, in G
-    let a be the assessment of n
-    insert n into Q with priority a
+    let s be score(n)
+    insert n into Q with priority s
 
 while Q is not empty:
-    read the highest priority node, n, in Q
-    reassess n
-    if the suitability of n has not dropped:
+    peak at highest priority node, n, and its score s, in Q
+    let new_score &lt;- score(n)
+    if new_score is not worse than s:
         remove n from Q
-        contract n
-        reassess the neighbours of n and update their property in Q
+        contract(n)
+        for each neighbour, m, of n
+            let score_m &lt;- score(m)
+            update the priority of m in Q
     else
         update the priority of n in Q
 
     if too many nodes have been read without being successfully contracted:
-        reassess every node</code></pre>
+        for every node, n, in G
+            let s be score(n)
+            insert n into Q with priority s
+        </code></pre>
+<p>The step “too many nodes have been read without being successfully contracted” is a bit arbitrary. Geisberger.</p>
 <p>There isn’t a well defined optimum and as the ordering doesn’t affect the correctness, so mistakes are not apparent in the output. It is therefore important to test each method of assessment separately.</p>
 <h2 id="edge-difference">Edge Difference</h2>
-<p>It is important that the contracted graph does not become too dense. Therefore an obvious and very important assessment is to choose nodes that result is the fewest edges in the remaining graph.</p>
-<p><strong>Exersise 4</strong> What is the edge difference for nodes A, B, and C?</p>
+<p>It is important that the contracted graph does not become too dense, therefore an obvious and very important assessment is to choose nodes that result is the fewest edges in the remaining graph. The <strong>edge difference</strong> is the number of edges added to the remaining graph minus the number of edges the contraction removes.</p>
+<p><strong>Exercise 4</strong> What is the edge difference for nodes A, B, and C?</p>
 <center>
 <img src="../svg/edge-difference-01.svg" alt />
 </center>
-<p><strong>Exersise 5</strong> Contract the straight line graph using only edge difference to decide the contraction order.</p>
+<p><strong>Exercise 5</strong> Contract the straight line graph using only edge difference to decide the contraction order. Would you expect performing queries on the resulting graph be particularly efficient?</p>
 <center>
 <img src="../svg/stright-line-graph.svg" alt />
 </center>
-<p>Would you expect performing queries on the resulting graph be particularly efficient?</p>
 <h2 id="problems-with-edge-difference">Problems with edge difference</h2>
-<p>Edge difference alone is clearly inadequate and produces poor solutions on linear graphs like the one above. Unfortunately, this is an important case as can been seen from this sample of <a href="https://www.openstreetmap.org/about">OMS</a> map. Some nodes have been visualised as green crosses. Note how roads tend to be represented as a linear sequence of nodes. Unless an additional preconditioning set is taken, linear sub-graphs will be very common in graphs that represent road networks.</p>
+<p>Edge difference alone is clearly inadequate and produces poor solutions on linear graphs like the one above. Unfortunately, this is an important case as can been seen from this sample of <a href="https://www.openstreetmap.org/about">OMS</a> map. Some nodes have been visualised as green crosses. Note how roads tend to be represented as long, linear sequence of nodes. Unless an additional preconditioning were to be done, linear sub-graphs will be very common in graphs that represent road networks.</p>
 <center>
 <img src="../res/ch-workshop/york.png" alt />
 </center>
 <p>Furthermore, typical edge differences are normally small numbers. In a graph with millions of nodes there will be huge numbers of nodes all with the same edge difference, so using edge difference alone produces a contraction order that is still very arbitrary.</p>
 <h2 id="contraction-depth">Contraction Depth</h2>
-<p>Good contraction orderings should tend to distribute the contractions evenly through the graph. A simple to implement heuristic for this is <em>contraction depth</em>, which is defined as follows:</p>
+<p>Good contraction orderings should tend to distribute the contractions evenly through the graph. A simple to implement heuristic for this is:</p>
 <ol style="list-style-type: decimal">
 <li>All original edges are assigned a contraction depth of 0.</li>
 <li>The contraction depth of a newly created shortcut edge is the maximum of the contraction depth of the two contraction edge.</li>
 <li>The contraction depth of a node is the maximum of the contraction depth of its connected edges.</li>
 </ol>
-<p><strong>Exersise 6</strong> The following graph has been contracted and red shortcuts have been added. Assign contraction depths to each shortcut.</p>
+<p>Michael Tandy calls this <strong>contraction depth</strong> but Geisberger calls it the <strong>original edges term</strong>.</p>
+<p><strong>Exercise 6</strong> The following graph has been contracted and red shortcuts have been added. Assign contraction depths to each shortcut.</p>
 <center>
 <img src="../svg/contraction-depth-problem.svg" alt />
 </center>
 <h2 id="combining">Combining</h2>
 <p>However many measures are used, they must be combined into a single priority term. Geisberger did this by taking a linear combination of the terms with carefully tuned coefficients. Michael Tandy’s implementation used a comparison where terms are used as tie breakers. The full implementation of the contraction ordering in Michael Tandy’s contraction hierarchy library is:</p>
-<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="kw">public</span> <span class="dt">int</span> <span class="fu">compareTo</span>(ContractionOrdering o) {
+<div class="sourceCode"><pre class="sourceCode java"><code class="sourceCode java"><span class="fu">@Override</span>
+<span class="kw">public</span> <span class="dt">int</span> <span class="fu">compareTo</span>(ContractionOrdering o) {
     <span class="kw">if</span> (o == <span class="kw">null</span>) {
         <span class="kw">return</span> -<span class="dv">1</span>;
     } <span class="kw">else</span> <span class="kw">if</span> (<span class="kw">this</span>.<span class="fu">edgeCountReduction</span>&gt;=<span class="dv">0</span> &amp;&amp; o.<span class="fu">edgeCountReduction</span>&lt;<span class="dv">0</span>) {
@@ -114,6 +121,14 @@ while Q is not empty:
         <span class="kw">return</span> <span class="dv">0</span>;
     }
 }</code></pre></div>
+<p>This function comes from a the Java <code>Comparable</code> interface. A negative return value indicates that the <code>this</code> object is less than the argument object and visa-versa. So it reads:</p>
+<ol style="list-style-type: decimal">
+<li>Null objects highest contraction order.</li>
+<li>If contracting a node would reduce the number of edges in the remaining graph and contracting the other node would not, that node is better.</li>
+<li>Otherwise the node with the lowest contraction order is best.</li>
+<li>Otherwise the node with the best edge reduction is best.</li>
+<li>Otherwise an arbitrary but deterministically selected node is best. This is done to make contractions repeatable.</li>
+</ol>
 <h1 id="conclusion">Conclusion</h1>
 <p>You should now be comfortable enough with contraction hierarchies to implement a version that would produce significant speedups on real country-sized road networks, feel comfortable reading the code of an existing implementation and read the more in-depth academic publications on this topics.</p>
 
