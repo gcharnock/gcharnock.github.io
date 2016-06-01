@@ -71,7 +71,7 @@ while Q is not empty:
             let s be score(n)
             insert n into Q with priority s
         </code></pre>
-<p>The step “too many nodes have been read without being successfully contracted” is a bit arbitrary. Geisberger.</p>
+<p>How many nodes is “too many nodes have been read without being successfully contracted” is a bit arbitrary because there isn’t a hard and fast rule. Geisberger recomputes the scores after 10 failed updates.</p>
 <p>There isn’t a well defined optimum and as the ordering doesn’t affect the correctness, so mistakes are not apparent in the output. It is therefore important to test each method of assessment separately.</p>
 <h2 id="edge-difference">Edge Difference</h2>
 <p>It is important that the contracted graph does not become too dense, therefore an obvious and very important assessment is to choose nodes that result is the fewest edges in the remaining graph. The <strong>edge difference</strong> is the number of edges added to the remaining graph minus the number of edges the contraction removes.</p>
@@ -97,7 +97,7 @@ while Q is not empty:
 <li>The contraction depth of a node is the maximum of the contraction depth of its connected edges.</li>
 </ol>
 <p>Michael Tandy calls this <strong>contraction depth</strong> but Geisberger calls it the <strong>original edges term</strong>.</p>
-<p><strong>Exercise 6</strong> The following graph has been contracted and red shortcuts have been added. Assign contraction depths to each shortcut.</p>
+<p><strong>Exercise 6</strong> The following graph has been contracted and red shortcuts have been added. Assign contraction depths to each shortcut. Note that the edge lengths of the shortcuts have been omitted to avoid confusion.</p>
 <center>
 <img src="../svg/contraction-depth-problem.svg" alt />
 </center>

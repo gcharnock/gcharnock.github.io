@@ -28,19 +28,97 @@
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <p>This is where things get a little harder—you can tell by the way the page loaded MathJax.</p>
 <p>In most graph theory if the edges are given weights, the weights are simple and comfortable numbers. In the time dependent case the edge weights become <em>mathematical functions</em>. It might not be obvious what a “shortest path” even mean under these conditions?</p>
-<p>Note, even though the edge weights are in general <em>mathematical functions</em>, these would generally be implemented as program language functions in code.</p>
+<p>Note, even though the edge weights are in general <em>mathematical functions</em>, these would generally <em>not</em> be implemented as program language functions in code.</p>
 <p>A good introduction to the general subject of time dependent route planning algorithms can be found here:</p>
 <ul>
-<li>Geisberger, Robert, et al. “Time-Dependent Route Planning” Robust and Online Large-Scale Optimization, LNCS. Springer, 2009.</li>
+<li>D. Delling and D. Wagner. “Time-Dependent Route Planning” Robust and Online Large-Scale Optimization, LNCS. Springer, 2009.</li>
 </ul>
-<h1 id="representing-time-depdendent-travel-times">Representing time depdendent travel times</h1>
-<p>Generally, sources of traffic data will give</p>
+<h1 id="working-with-function-valued-travel-times">Working with function-valued travel times</h1>
+<p>Consider travelling through the following graph. If a depature time from <span class="math inline"><em>A</em></span> is known, <span class="math inline"><em>t</em><sub><em>d</em></sub></span>, it is easy to find the arrival time at <span class="math inline"><em>B</em></span> by simple substitution first into <span class="math inline"><em>f</em><sub>1</sub></span> and the result into <span class="math inline"><em>f</em><sub>2</sub></span>.</p>
 <center>
-<span class="math inline"><em>f</em>(<em>x</em>)=<em>f</em><sub>1</sub>(<em>x</em>)+<em>f</em><sub>2</sub>(<em>x</em>)</span>
+<img src="../svg/td_graph_1.svg" alt />
 </center>
+<p><strong>Exersise 1 (a)</strong> Consider traveling from <span class="math inline"><em>A</em></span> to <span class="math inline"><em>B</em></span> starting at time <span class="math inline"><em>t</em></span>. Let <span class="math inline"><em>f</em><sub>1</sub>(<em>t</em>)=4<em>t</em> + 1</span> and <span class="math inline"><em>f</em><sub>2</sub>(<em>t</em>)=<em>t</em><sup>2</sup> + 1</span> Starting at time 1, what is the travel time from A to B?</p>
+<p>However, suppose the middle node was to be contracted and a shortcut edge was needed to be added going from A to B. The edge weight needs to be a function-valued.</p>
 <center>
-<img src="../gen/hello.svg" alt />
+<br /><span class="math display"><em>f</em><sub><em>s</em><em>h</em><em>o</em><em>r</em><em>t</em><em>c</em><em>u</em><em>t</em></sub>(<em>t</em>)=<em>f</em><sub>1</sub>(<em>t</em>)+<em>f</em><sub>2</sub>(<em>f</em><sub>1</sub>(<em>t</em>))</span><br />
 </center>
+<p><strong>Exersise 1 (b)</strong> What is the travel time function from A to B? (Answer: <span class="math inline"><em>f</em><sub><em>s</em><em>h</em><em>o</em><em>r</em><em>t</em><em>c</em><em>u</em><em>t</em></sub>(<em>t</em>)=3 + 12<em>t</em> + 16<em>t</em><sup>2</sup></span>)</p>
+<p>Combinding functions this way is new operation that must be suported by whatever data type is used to represent the functions. D. Delling and D. Wagner use the notation <span class="math inline"><em>f</em><sub>1</sub> ⊕ <em>f</em><sub>2</sub></span> for this operation.</p>
+<h1 id="fifo-or-no-overtaking-property">FIFO or “no-overtaking” Property</h1>
+<p>Of course, travel times that are polynomials in <span class="math inline"><em>t</em></span> are not very realistic. Real traffic paterns are generally periodic over the course of one day. It is also reasonable that <em>if person A leaves a node at time <span class="math inline"><em>t</em></span>, then person B leaving at time <span class="math inline"><em>t</em> + <em>ε</em></span> should arrive at B later than person A.</em> Formally:</p>
+<center>
+<br /><span class="math display">∀<em>t</em>, <em>ε</em> &gt; 0.<em>f</em>(<em>t</em>)≤<em>f</em>(<em>t</em> + <em>ε</em>)+<em>ε</em></span><br />
+</center>
+<p>Non-FIFO graphs are highly paradoxical and cannot correspond to roads with a well defined average speed and so should be excluded because the contraction heirachy and similar algorithsm all break and the shortest path problem becomes NP complete in such graphs.</p>
+<h1 id="representing-functions">Representing Functions</h1>
+<p>In order to work with functions, we need to represent them in memory somehow. We could try to derive some abstract syntax tree for algebrac expressions, but that would clearly be overkill. Traffic data is typically given at regually spaced intervals over the course of a day. Here is an example:</p>
+<center>
+<table border="1">
+<thead>
+<tr>
+<th>
+Start Time
+</th>
+<th>
+Jounry Time
+</th>
+<tr>
+</head>
+<tbody>
+<tr>
+<td>
+0:00
+</td>
+<td>
+4
+</td>
+<tr>
+<tr>
+<td>
+6:00
+</td>
+<td>
+6
+</td>
+<tr>
+<tr>
+<td>
+12:00
+</td>
+<td>
+5
+</td>
+<tr>
+<tr>
+<td>
+18:00
+</td>
+<td>
+7
+</td>
+<tr>
+</tbody>
+</table>
+</td>
+</td>
+</table>
+</center>
+<p>The simplest representation would be piecewise-constant but these types of functions do not fufil the FIFO property.</p>
+<p>However, peicewise linear functions may depend on the</p>
+<pre><code>Input: a time, t,
+       a function represented as an array of jounry times, A, and its period T
+
+let time_in_period &lt;- t mod T
+    starting_interpolation_point &lt;- floor(t/T)
+    ending_interpolation_point &lt;- (starting_interpolation_point + 1) mod A.length
+return      time_in_period  * A[starting_interpolation_point] +
+       (1 - time_in_period) * A[ending_interpolation_point]</code></pre>
+<p><strong>Exersise 2</strong> Draw a graph of the function represented by the above table, if the above algorithm is used to evaulate it.</p>
+<h2 id="an-asside-about-the-number-field">An asside about the number field</h2>
+<h1 id="time-dependent-dijkstras">Time dependent Dijkstras</h1>
+<h1 id="apendix-proof-that-the-fifo-holds">Apendix: Proof that the FIFO holds</h1>
+<p>Was nerd-sniped by this. Will do later.</p>
 
         </div>
         <div id="footer">
