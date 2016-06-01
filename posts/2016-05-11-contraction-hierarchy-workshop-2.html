@@ -131,6 +131,14 @@ while Q is not empty:
 </ol>
 <h1 id="conclusion">Conclusion</h1>
 <p>You should now be comfortable enough with contraction hierarchies to implement a version that would produce significant speedups on real country-sized road networks, feel comfortable reading the code of an existing implementation and read the more in-depth academic publications on this topics.</p>
+<h1 id="where-to-go-next">Where to go next</h1>
+<p>Combining the basic algorithm with a method to find a good contraction order is enough to implement a practical contraction hierarchies algorithm. There are many improvements that can be build on this framework. Among them are:</p>
+<ul>
+<li>More contraction order heuristics. Geisberger details many more in his thesis along with the effects they had to the preprocessing and query times.</li>
+<li>Faster map updates. The majority of the preprocessing time is spend finding the contraction order. For small changes to a road network, the previous contraction order could be reused to greatly speed up the preprocessing.</li>
+<li>Stall-on-demand optimisation. Geisberger details an optimisation that can result on a 2 times speed up of query times by noting that some nodes touched by each half-search cannot be part of any shortest path and so can be disregarded or “stalled”.</li>
+<li>Time dependency. Contraction hierarchies can be adapted to deal with changing traffic conditions that can result in different paths being the shortest path between two nodes depending on the starting time.</li>
+</ul>
 
         </div>
         <div id="footer">
